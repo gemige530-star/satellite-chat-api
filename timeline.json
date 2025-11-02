@@ -1,0 +1,310 @@
+{
+  "title": {
+    "text": {
+      "headline": "Satellite / Orbital Art Timeline",
+      "text": "A working timeline generated from your spreadsheet. You can edit/update the JSON anytime."
+    }
+  },
+  "events": [
+    {
+      "start_date": {
+        "year": 1965
+      },
+      "text": {
+        "headline": "Orbital Sunrise",
+        "text": "<b>Location:</b> Soviet<br><b>Artists/Group:</b> Alexei Arkhipovich Leonov (USSR cosmonaut, artist)<br><b>Technical Support:</b> Soviet Space Program (Voskhod-2 mission team, OKB-1 Design Bureau)<br><b>Type:</b> Drawing / Space-based artwork<br><b>Presentation/Audience:</b> Originally a private act of artistic expression in orbit, the drawing was later preserved and exhibited on Earth. It was featured in the 2015 exhibition Cosmonauts: Birth of the Space Age at the Science Museum, London, where audiences could view the original sketch and archival footage of Leonov’s mission."
+      },
+      "media": {
+        "url": "https://climatecultures.net/museum-of-the-anthropocene/material-culture-inside-the-museum/orbital-sunrise-sketch-alexei-leonov/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1969
+      },
+      "text": {
+        "headline": "The Moon Museum",
+        "text": "<b>Location:</b> America<br><b>Artists/Group:</b> Forrest Myers (initiator) with Andy Warhol, Robert Rauschenberg, David Novros, Claes Oldenburg, and John Chamberlain<br><b>Technical Support:</b> Engineers at Bell Laboratories (miniaturisation / etching of drawings onto ceramic wafer); anonymous engineer at Grumman Aircraft involved in placement on lunar module.\nApollo 12<br><b>Type:</b> Artworks designed to be sent to the Moon.<br><b>Presentation/Audience:</b> Originally the work was never officially exhibited in space (and its actual presence on the Moon remains disputed). On Earth, editions of the wafer have been shown in museums (for example at the Museum of Modern Art, New York). \nThe Museum of Modern Art\n The project raises questions about art, space exploration, institutional permission, clandestine practice, and how artworks engage with extreme environments beyond Earth."
+      },
+      "media": {
+        "url": "https://www.moma.org/collection/works/62272?utm_source=chatgpt.com"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1971
+      },
+      "text": {
+        "headline": "Fallen Astronaut",
+        "text": "<b>Location:</b> America<br><b>Artists/Group:</b> Paul Van Hoeydonck (Belgian artist)\nNASA, United States<br><b>Technical Support:</b> Apollo 15 mission crew (NASA, United States)\nApollo 15<br><b>Type:</b> Artworks designed to be sent to the Moon.\n\nSculpture / Monument / Memorial Art<br><b>Presentation/Audience:</b> The original sculpture remains on the Moon, visible only through archival photos and mission documentation. Its Earth-based replicas and later exhibitions have provoked discussion about authenticity, commemoration, and the ethics of art beyond Earth."
+      },
+      "media": {
+        "url": "https://en.wikipedia.org/wiki/Fallen_Astronaut?utm_source=chatgpt.com"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1977
+      },
+      "text": {
+        "headline": "Voyager Golden Record",
+        "text": "<b>Location:</b> America<br><b>Artists/Group:</b> 1977 – present (Voyager 1 and Voyager 2 missions launched in September 1977; left the solar system in 2012 and 2018 respectively\n\nConcept initiated by Carl Sagan (astronomer) and the Voyager Interstellar Record Committee: Frank Drake, Ann Druyan, Timothy Ferris, Jon Lomberg, Linda Sagan, et al.<br><b>Technical Support:</b> NASA / Jet Propulsion Laboratory (JPL); Cornell University; NASA Ames Research Center<br><b>Type:</b> orbit art\nInterstellar message / science–art hybrid / sound-and-image archive<br><b>Presentation/Audience:</b> On the Earth\nMuseum\nThough the original records are now beyond human reach, replicas and digital editions have been displayed on Earth at the Smithsonian National Air and Space Museum, MoMA, and other institutions. The project continues to inspire audiences through exhibitions, documentaries, and the 2017 Voyager Golden Record: 40th Anniversary Edition reissue by Ozma Records."
+      },
+      "media": {
+        "url": "https://science.nasa.gov/mission/voyager/voyager-golden-record-overview/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1977
+      },
+      "text": {
+        "headline": "Satellite Arts Project",
+        "text": "<b>Location:</b> United States — real-time satellite link between the East and West Coasts<br><b>Artists/Group:</b> Sherrie Rabinowitz & Kit Galloway<br><b>Technical Support:</b> NASA and AT&T<br><b>Type:</b> Performance + Experimental media art\n<br><b>Presentation/Audience:</b> Earth-based exhibition\ntelevised live performance\nliving telecommunication performance\nTV<br><b>References:</b> Bureaud, Annick. \"It's a Beautiful Name for a Satellite: Paradoxical Art Objects Somewhere between Politics and Poetics.\" Leonardo 54.1 (2021): 79-91."
+      },
+      "media": {
+        "url": "https://www.ecafe.com/getty/SA/index.html"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1984
+      },
+      "text": {
+        "headline": "Good Morning, Mr. Orwell",
+        "text": "<b>Location:</b> Live international satellite broadcast between WNET TV (New York) and Centre Pompidou (Paris)<br><b>Artists/Group:</b> Nam June Paik(白南准）Nam June Paik (with Joseph Beuys, John Cage, Laurie Anderson, Peter Gabriel, Oingo Boingo, Allen Ginsberg, Merce Cunningham, etc.)<br><b>Technical Support:</b> WNET (USA), Centre Pompidou (France), Paik Video Studio, and global satellite relay network<br><b>Type:</b> Satellite Art / Telematic Art / Live Media Performance<br><b>Presentation/Audience:</b> Earth-based exhibition\nlive satellite TV broadcast\nNew York–Paris–Seoul–West Germany\nTV"
+      },
+      "media": {
+        "url": "https://science.nasa.gov/mission/voyager/voyager-golden-record-overview/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1986
+      },
+      "text": {
+        "headline": "Ágora",
+        "text": "<b>Location:</b> Brazil / United States<br><b>Artists/Group:</b> Eduardo Kac<br><b>Technical Support:</b> Early telecommunication networks (1980s); later internet and interactive media platforms<br><b>Type:</b> Space art"
+      },
+      "media": {
+        "url": "https://www.ekac.org/agora.html"
+      }
+    },
+    {
+      "start_date": {
+        "year": 1995
+      },
+      "text": {
+        "headline": "Art Exhibition on Mir: “Space and Humanity”",
+        "text": "<b>Location:</b> Russia<br><b>Artists/Group:</b> Twenty international artists (organized under the theme Space and Humanity)<br><b>Technical Support:</b> Russian Federal Space Agency (Roscosmos); Mir mission crew; onboard digital systems and portable computer support<br><b>Type:</b> Orbital Art Work \nSpace Station<br><b>Presentation/Audience:</b> Space Station for Astronaut"
+      },
+      "media": {
+        "url": "https://thespaceoption.com/ars-ad-astra-the-1st-art-exhibition-in-earth-orbit/?utm_source=chatgpt.com"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2003
+      },
+      "text": {
+        "headline": "Beagle 2 “Spot Painting” Calibration Target",
+        "text": "<b>Location:</b> United Kingdom<br><b>Artists/Group:</b> Damien Hirst (in collaboration with Beagle 2 Mars Lander Mission Team, led by Professor Colin Pillinger)<br><b>Technical Support:</b> European Space Agency (ESA); University of Leicester; Open University; British National Space Centre<br><b>Type:</b> planetary art<br><b>Presentation/Audience:</b> Located on Mars; a flight-spare version exhibited at the Fitzwilliam Museum, Cambridge."
+      },
+      "media": {
+        "url": "https://meteoritestheblog.com/2016/11/13/spotted-on-mars/?utm_source=chatgpt.com\n\nhttps://artlyst.com/news/damien-hirst-first-art-on-another-planet-british-probe-found/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2016
+      },
+      "text": {
+        "headline": "Danse en zerogravité",
+        "text": "<b>Location:</b> France (based in Paris)<br><b>Artists/Group:</b> Jeanne Morel (co-founded with Paul Marlier)<br><b>Technical Support:</b> CNES \nairbus A310 ZERO-G operated by Novespace (CNES, France)<br><b>Presentation/Audience:</b> Earth-based exhibition+video"
+      },
+      "media": {
+        "url": "Jeanne Morel Bio – “Art In Space” https://www.jeanne-morel.com/en/bio\nArt In Space website https://www.artinspace.fr/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2017
+      },
+      "text": {
+        "headline": "#Laugh",
+        "text": "<b>Location:</b> Israel<br><b>Artists/Group:</b> Eyal Gever<br><b>Presentation/Audience:</b> Earth-based exhibition+video\n3D printing in ISS + video documentation"
+      },
+      "media": {
+        "url": "https://www.eyalgever.com/laugh"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2017
+      },
+      "text": {
+        "headline": "Télescope Intérieur",
+        "text": "<b>Location:</b> France / Brazil (artist’s base)<br><b>Artists/Group:</b> Eduardo Kac (in collaboration with ESA astronaut Thomas Pesquet)<br><b>Technical Support:</b> European Space Agency (ESA); CNES (French National Centre for Space Studies); International Space Station crew<br><b>Type:</b> Space Art / Telepresence Art / Conceptual Performance<br><b>Presentation/Audience:</b> Earth-based exhibition+video\n"
+      },
+      "media": {
+        "url": "https://www.ekac.org/telescope_interieur_francais.html"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2018
+      },
+      "text": {
+        "headline": "Orbital Reflector",
+        "text": "<b>Location:</b> Deployed from Vandenberg Air Force Base, California, USA<br><b>Artists/Group:</b> Trevor Paglen (in collaboration with the Nevada Museum of Art)<br><b>Technical Support:</b> Aerospace engineer team led by Global Western, in partnership with Spaceflight Industries; launch supported by SpaceX Falcon 9 rocket; Nevada Museum of Art provided institutional and curatorial backing<br><b>Type:</b> Satellite Art / Space Sculpture / Public Art in Orbit<br><b>Presentation/Audience:</b> Earth-based exhibition\nOrignally visible to the public with the naked eye.\nA reflective sculpture planned to unfold in orbit but failed to deploy.<br><b>References:</b> Brownie, Barbara. Art in Orbit: Art Objects and Spaceflight. Bloomsbury Publishing, 2025. Print.p.30.\n"
+      },
+      "media": {
+        "url": "https://en.wikipedia.org/wiki/Orbital_Reflector"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2018
+      },
+      "text": {
+        "headline": "ENOCH",
+        "text": "<b>Location:</b> United States<br><b>Artists/Group:</b> Tavares Strachan (Bahamas-born, US-based artist)<br><b>Technical Support:</b> Los Angeles County Museum of Art (LACMA Art + Technology Lab); SpaceX (Falcon 9 launch vehicle); Northrop Grumman (satellite platform)<br><b>Type:</b> Orbital art / memorial sculpture / satellite art<br><b>Presentation/Audience:</b> Orbited Earth for three years; related documentation and models exhibited at the Los Angeles County Museum of Art (LACMA)."
+      },
+      "media": {
+        "url": "https://artlab.hyundai.com/project/tavares-strachan-enoch"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2018
+      },
+      "text": {
+        "headline": "Satellite Lake: Cosmic Reflections",
+        "text": "<b>Location:</b> China<br><b>Artists/Group:</b> Xu Bing<br><b>Technical Support:</b> Chinese private satellite company (Ladybug No. 1 Satellite); ground control and data transmission teams<br><b>Type:</b> Satellite art / stop-motion animation / digital media project<br><b>Presentation/Audience:</b> Created and transmitted from low Earth orbit; \nMuseum：\nRed Brick Art Museum, Beijing, 2021-2022. Xie Zilong Photography Museum, Changsha, 2022"
+      },
+      "media": {
+        "url": "https://www.xubing.com/cn/work/details/691?classID=15&type=class#691"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2019
+      },
+      "text": {
+        "headline": "Living Distance",
+        "text": "<b>Location:</b> United States<br><b>Artists/Group:</b> Liu Xin (artist and engineer)<br><b>Technical Support:</b> Blue Origin (New Shepard suborbital spacecraft)<br><b>Type:</b> Suborbital art / performance / conceptual installation<br><b>Presentation/Audience:</b> Suborbital space (microgravity environment); video and VR installation exhibited on Earth after flight."
+      },
+      "media": {
+        "url": "https://kadist.org/work/living-distance/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2019
+      },
+      "text": {
+        "headline": "Tianshu Rocket",
+        "text": "<b>Location:</b> China<br><b>Artists/Group:</b> Xu Bing<br><b>Technical Support:</b> Chinese private aerospace company (collaborative development of the launch vehicle)<br><b>Type:</b> Rocket art / suborbital art / conceptual sculpture<br><b>Presentation/Audience:</b> Suborbital flight within Earth’s atmosphere; related video and documentation presented in exhibitions of Xu Bing’s space art projects in China.\nInstallation view of \"Xu Bing Tianshu\" Rocket Crater. Red Brcik Museum, Beijing, 2021"
+      },
+      "media": {
+        "url": "https://www.xubing.com/en/work/details/707?type=project#707"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2019
+      },
+      "text": {
+        "headline": "Space/Craft",
+        "text": "<b>Location:</b> United States (Alexis Hope is based in Seattle, Washington)<br><b>Artists/Group:</b> Alexis Hope<br><b>Technical Support:</b> MIT Media Lab Space Exploration Initiative (SEI) & CAMIT (Council for the Arts at MIT)<br><b>Type:</b> Space Art / Design Research / Microgravity Craft Experiment<br><b>Presentation/Audience:</b> Earth-based exhibition+video"
+      },
+      "media": {
+        "url": "https://www.media.mit.edu/posts/sei-exhibition-ars-electronica-2019/?utm_source=chatgpt.com\nhttps://www.alexishope.com/spacecraft?utm_source=chatgpt.com"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2020
+      },
+      "text": {
+        "headline": "Moon Gallery",
+        "text": "<b>Location:</b> The Netherlands (headquarters and curatorial base, ESA–ESTEC, Noordwijk)<br><b>Artists/Group:</b> Moon Gallery Foundation (founded by Dr. Nahum Anaya Calderón and Dr. Alexander Ponomarev) — a collective of international artists, designers, engineers, and scientists<br><b>Technical Support:</b> European Space Agency (ESA) – European Space Research and Technology Centre (ESTEC); International Space Station National Lab; Nanoracks; Ramon Foundation; NASA (partnership for Ax-1 mission)<br><b>Type:</b> Artworks designed to be sent to the Moon.<br><b>Presentation/Audience:</b> Moon-based exhibition\nMoon Gallery for next generation\nBy embedding art in space exploration, we hope to leave a cultural legacy that inspires dialogue, collaboration, and a sense of unity for generations to come.\n"
+      },
+      "media": {
+        "url": "https://moongallery.eu/about/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2020
+      },
+      "text": {
+        "headline": "Fluid Expressions",
+        "text": "<b>Location:</b> United States (based at MIT Media Lab, Cambridge, MA)<br><b>Artists/Group:</b> Sana Sharma<br><b>Technical Support:</b> MIT Media Lab Space Exploration Initiative; Zero‑G Corporation (Zero-G parabolic flights<br><b>Type:</b> Space Art / Design Research / Microgravity Craft Experiment<br><b>Presentation/Audience:</b> Earth-based exhibition+video"
+      },
+      "media": {
+        "url": "https://www.gsdkirklandgallery.com/exhibitions/202104-fluid-expressions?utm_source=chatgpt.com"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2021
+      },
+      "text": {
+        "headline": "The Challenge (Вызов)",
+        "text": "<b>Location:</b> Russia<br><b>Artists/Group:</b> Directed by Klim Shipenko; starring Yulia Peresild; produced by Channel One Russia and Roscosmos<br><b>Technical Support:</b> Roscosmos (Russian Space Agency); International Space Station (ISS) crew<br><b>Type:</b> On October 5 2021, the Russian space agency Roscosmos launched film director Klim Shipenko and actress Yulia Peresild to the International Space Station to shoot the feature film The Challenge—the first major motion picture filmed in space. Over twelve days aboard the ISS, they filmed scenes involving two Russian cosmonauts who also appeared in the movie. The story follows a doctor who must travel to space to save an astronaut’s life. The film premiered on April 20 2023 in Serbia and Russia.<br><b>Presentation/Audience:</b> Space film / cinematic performance / collaborative art–science project"
+      },
+      "media": {
+        "url": "https://ru.wikipedia.org/wiki/%D0%92%D1%8B%D0%B7%D0%BE%D0%B2_(%D1%84%D0%B8%D0%BB%D1%8C%D0%BC,_2023)"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2022
+      },
+      "text": {
+        "headline": "Impossible object",
+        "text": "<b>Location:</b> Israel<br><b>Artists/Group:</b> Prof. Yasmine Meroz and Liat Segal<br><b>Technical Support:</b> Israeli Space Agency; Ramon Foundation; Israel Aerospace Industries (IAI); in collaboration with NASA and the ISS National Lab Impossible Object was activated and documented on the International Space Station by astronaut Eitan Stibe during mission AX-1, April 2022, as part of Rakia Art Mission. Axiom Mission 1 (Ax-1) was the first private astronaut mission on the International Space Station (ISS), a collaborative effort between SpaceX (shuttle) on behalf of Axiom Space in cooperation with NASA, in which four crew members conducted science, art, and outreach activities.<br><b>Type:</b> Space Art / Kinetic Sculpture / Science-Art Collaboration<br><b>Presentation/Audience:</b> Earth-based exhibition\nvideo\nvideo recording, scientific data, and photographic documentation \nhave been exhibited in Isreal Museum.\n \nThe artwork Impossible Object is no longer aboard the International Space Station. The mission lasted about 17 days, during which the kinetic experiment was conducted and documented in microgravity. After the mission ended, the physical components of the artwork returned to Earth with the crew.\n"
+      },
+      "media": {
+        "url": "https://www.liatsegal.com/impossible-object-art-in-outer-space/"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2022
+      },
+      "text": {
+        "headline": "Rakia Art Mission",
+        "text": "<b>Location:</b> Israel<br><b>Artists/Group:</b> 11 pieces\nImpossible Object\nJump Deep\nGravity Control\nGoal\nDialogue at Eight Kilometers per Second\nCorrespondence: A Visual Travelogue\nNothing in space\nA Sound Guid to the ISS\nEarth Signal Universe Wide\nSpace Jewel<br><b>Presentation/Audience:</b> Earth-based exhibition\nVideo\n"
+      },
+      "media": {
+        "url": "https://www.rakiamission.com/art-en"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2024
+      },
+      "text": {
+        "headline": "Xu Bing Art Satellite Creative Residency Project",
+        "text": "<b>Location:</b> China<br><b>Artists/Group:</b> Xu Bing & Xu Bing Studio (with invited artists via the Residency Program)<br><b>Technical Support:</b> Beijing Wanhu Chuangshi Co., Ltd, satellite technology provider, plus satellite launch infrastructure (Star Chain series)<br><b>Type:</b> satellite art<br><b>Presentation/Audience:</b> Earth-based exhibition"
+      },
+      "media": {
+        "url": "https://mp.weixin.qq.com/s/vpNAc_WFbopfJ1GcTJwynA"
+      }
+    },
+    {
+      "start_date": {
+        "year": 2024
+      },
+      "text": {
+        "headline": "Moon Phases",
+        "text": "<b>Location:</b> United States<br><b>Artists/Group:</b> Jeff Koons (American contemporary artist)<br><b>Technical Support:</b> Intuitive Machines (Nova-C lunar lander); SpaceX (Falcon 9 launch vehicle); NASA CLPS Program<br><b>Type:</b> Lunar art / sculpture / NFT hybrid project<br><b>Presentation/Audience:</b> Located on the lunar surface; corresponding Earth sculptures and NFTs exhibited and sold globally."
+      },
+      "media": {
+        "url": "https://jeffkoonsmoonphases.com"
+      }
+    }
+  ]
+}

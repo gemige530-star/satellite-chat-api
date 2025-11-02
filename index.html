@@ -5,6 +5,59 @@
   <meta charset="UTF-8">
   <title>Satellite Art Archive</title>
   <style>
+   <section id="chat-section" style="position:fixed;bottom:20px;right:20px;width:320px;">
+  <div id="chat-window" style="background:#111;border-radius:10px;padding:10px;max-height:400px;overflow-y:auto;color:#fff;font-family:sans-serif;font-size:14px;">
+    <div id="chat-history"></div>
+  </div>
+  <div style="margin-top:10px;display:flex;gap:6px;">
+    <input id="userInput" type="text" placeholder="Ask AI..." style="flex:1;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;">
+    <button id="sendBtn" style="background:#0af;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;">Send</button>
+  </div>
+</section>
+
+<script>
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const history = document.getElementById("chat-history");
+  const userMsg = input.value.trim();
+  if (!userMsg) return;
+  
+  // 显示用户消息
+  const userBubble = document.createElement("div");
+  userBubble.style.textAlign = "right";
+  userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
+  history.appendChild(userBubble);
+  input.value = "";
+
+  // 显示加载动画
+  const loading = document.createElement("div");
+  loading.textContent = "AI is typing...";
+  loading.style.color = "#888";
+  history.appendChild(loading);
+  history.scrollTop = history.scrollHeight;
+
+  // 发送消息到 API
+  const res = await fetch("/api/chat", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ message: userMsg })
+  });
+
+  const data = await res.json();
+  loading.remove();
+
+  // 显示 AI 回复
+  const aiBubble = document.createElement("div");
+  aiBubble.innerHTML = `<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;">${data.reply}</div>`;
+  history.appendChild(aiBubble);
+  history.scrollTop = history.scrollHeight;
+}
+
+document.getElementById("sendBtn").addEventListener("click", sendMessage);
+document.getElementById("userInput").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+</script>
     body {
       margin: 0;
       background: black;

@@ -1,63 +1,9 @@
 <!DOCTYPE html>
-<!-- rebuild -->
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Satellite Art Archive</title>
   <style>
-   <section id="chat-section" style="position:fixed;bottom:20px;right:20px;width:320px;">
-  <div id="chat-window" style="background:#111;border-radius:10px;padding:10px;max-height:400px;overflow-y:auto;color:#fff;font-family:sans-serif;font-size:14px;">
-    <div id="chat-history"></div>
-  </div>
-  <div style="margin-top:10px;display:flex;gap:6px;">
-    <input id="userInput" type="text" placeholder="Ask AI..." style="flex:1;padding:8px;border-radius:8px;border:none;background:#222;color:#fff;">
-    <button id="sendBtn" style="background:#0af;color:#fff;border:none;border-radius:8px;padding:8px 12px;cursor:pointer;">Send</button>
-  </div>
-</section>
-
-<script>
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const history = document.getElementById("chat-history");
-  const userMsg = input.value.trim();
-  if (!userMsg) return;
-  
-  // 显示用户消息
-  const userBubble = document.createElement("div");
-  userBubble.style.textAlign = "right";
-  userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
-  history.appendChild(userBubble);
-  input.value = "";
-
-  // 显示加载动画
-  const loading = document.createElement("div");
-  loading.textContent = "AI is typing...";
-  loading.style.color = "#888";
-  history.appendChild(loading);
-  history.scrollTop = history.scrollHeight;
-
-  // 发送消息到 API
-  const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({ message: userMsg })
-  });
-
-  const data = await res.json();
-  loading.remove();
-
-  // 显示 AI 回复
-  const aiBubble = document.createElement("div");
-  aiBubble.innerHTML = `<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;">${data.reply}</div>`;
-  history.appendChild(aiBubble);
-  history.scrollTop = history.scrollHeight;
-}
-
-document.getElementById("sendBtn").addEventListener("click", sendMessage);
-document.getElementById("userInput").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
-</script>
     body {
       margin: 0;
       background: black;
@@ -71,7 +17,7 @@ document.getElementById("userInput").addEventListener("keypress", (e) => {
       box-shadow: 0 0 10px rgba(77,166,255,0.3);
     }
     nav a {
-      color: #4da6ff; /* 航天蓝 */
+      color: #4da6ff;
       text-decoration: none;
       margin: 0 1.2em;
       font-weight: bold;
@@ -83,23 +29,74 @@ document.getElementById("userInput").addEventListener("keypress", (e) => {
       text-shadow: 0 0 8px #4da6ff;
     }
     h1 {
-      margin-top: 0.8em; /* 减少上方空白 */
+      margin-top: 0.8em;
       font-size: 2.6em;
       letter-spacing: 0.1em;
     }
     p {
       font-size: 1.2em;
       opacity: 0.8;
-      margin-top: 0.4em; /* 让说明文字靠近标题 */
+      margin-top: 0.4em;
     }
     footer {
-      margin-top: 5em;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #0a0a0a;
       opacity: 0.6;
       font-size: 0.9em;
+      text-align: center;
+      padding: 0.8em 0;
+      box-shadow: 0 -2px 8px rgba(77,166,255,0.2);
+    }
+    /* Chatbox */
+    #chat-section {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      z-index: 1000;
+    }
+    #chat-window {
+      background: #111;
+      border-radius: 10px;
+      padding: 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      color: #fff;
+      font-family: sans-serif;
+      font-size: 14px;
+      box-shadow: 0 0 12px rgba(77,166,255,0.3);
+    }
+    #chat-input-area {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+    }
+    #userInput {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    #sendBtn {
+      background: #0af;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    #sendBtn:hover {
+      background: #09f;
     }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="home.html">Home</a>
     <a href="about.html">About</a>
@@ -109,47 +106,91 @@ document.getElementById("userInput").addEventListener("keypress", (e) => {
 
   <h1>🛰️ Satellite Art Archive</h1>
   <p>Exploring the intersection of art, technology, and outer space.</p>
- <section style="display: flex; justify-content: center; gap: 2em; margin-top: 3em; flex-wrap: wrap;">
-  <a href="https://www.moma.org/collection/works/62272?utm_source=chatgpt" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <img src="Images/The Moon Museum.jpg" alt="The Moon Museum" style="width: 100%; height: 160px; object-fit: cover;">
-    <div style="padding: 1em; text-align: left;">
-      <h3 style="margin: 0; font-size: 1.1em;">The Moon Museum</h3>
-      <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1969</p>
+
+  <section style="display: flex; justify-content: center; gap: 2em; margin-top: 3em; flex-wrap: wrap;">
+    <a href="https://www.moma.org/collection/works/62272" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/The Moon Museum.jpg" alt="The Moon Museum" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">The Moon Museum</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1969</p>
+      </div>
+    </a>
+
+    <a href="https://en.wikipedia.org/wiki/Fallen_Astronaut" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/Fallen Astronaut.jpg" alt="Fallen Astronaut" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">Fallen Astronaut</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1971</p>
+      </div>
+    </a>
+
+    <a href="https://science.nasa.gov/mission/voyager/voyager-mission/overview" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/Voyager Golden Record.jpg" alt="Voyager Golden Record" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">Voyager Golden Record</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1977–present</p>
+      </div>
+    </a>
+  </section>
+
+  <footer>
+    © 2025 Satellite Art Archive · Created by gemige530-star
+  </footer>
+
+  <!-- Chatbox -->
+  <section id="chat-section">
+    <div id="chat-window">
+      <div id="chat-history"></div>
     </div>
-  </a>
-
-  <a href="https://en.wikipedia.org/wiki/Fallen_Astronaut?utm_source=chatgpt" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <img src="Images/Fallen Astronaut.jpg" alt="Fallen Astronaut" style="width: 100%; height: 160px; object-fit: cover;">
-    <div style="padding: 1em; text-align: left;">
-      <h3 style="margin: 0; font-size: 1.1em;">Fallen Astronaut</h3>
-      <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1971</p>
+    <div id="chat-input-area">
+      <input id="userInput" type="text" placeholder="Ask AI...">
+      <button id="sendBtn">Send</button>
     </div>
-  </a>
+  </section>
 
-  <a href="https://science.nasa.gov/mission/voyager/voyager-mission/overview?utm_source=chatgpt" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <img src="Images/Voyager Golden Record.jpg" alt="Voyager Golden Record" style="width: 100%; height: 160px; object-fit: cover;">
-    <div style="padding: 1em; text-align: left;">
-      <h3 style="margin: 0; font-size: 1.1em;">Voyager Golden Record</h3>
-      <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1977–present</p>
-    </div>
-  </a>
-</section>
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput");
+      const history = document.getElementById("chat-history");
+      const userMsg = input.value.trim();
+      if (!userMsg) return;
 
-<footer>
-  © 2025 Satellite Art Archive · Created by gemige530-star
-</footer>
+      const userBubble = document.createElement("div");
+      userBubble.style.textAlign = "right";
+      userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
+      history.appendChild(userBubble);
+      input.value = "";
 
-<style>
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #0a0a0a;
-    opacity: 0.6;
-    font-size: 0.9em;
-    text-align: center;
-    padding: 0.8em 0;
-    box-shadow: 0 -2px 8px rgba(77,166,255,0.2);
-  }
-</style>
+      const loading = document.createElement("div");
+      loading.textContent = "AI is typing...";
+      loading.style.color = "#888";
+      history.appendChild(loading);
+      history.scrollTop = history.scrollHeight;
+
+      try {
+        const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: userMsg })
+        });
+        const data = await res.json();
+        loading.remove();
+
+        const aiBubble = document.createElement("div");
+        aiBubble.innerHTML = `<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;">${data.reply}</div>`;
+        history.appendChild(aiBubble);
+        history.scrollTop = history.scrollHeight;
+      } catch (err) {
+        loading.textContent = "Error connecting to AI.";
+        loading.style.color = "red";
+      }
+    }
+
+    document.getElementById("sendBtn").addEventListener("click", sendMessage);
+    document.getElementById("userInput").addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+</body>
+</html>

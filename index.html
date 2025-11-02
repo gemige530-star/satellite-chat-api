@@ -37,7 +37,7 @@ async function sendMessage() {
   history.scrollTop = history.scrollHeight;
 
   // 发送消息到 API
-  const res = await fetch("/api/chat", {
+  const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ message: userMsg })

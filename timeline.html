@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Satellite Art Timeline</title>
   <style>
-   html, body {
-  height: 100%;
-  margin: 0;
-  background-color: #f8f9fa;  /* 柔和浅灰背景 */
-  color: #000;
-  font-family: "Helvetica Neue", sans-serif;
-  overflow: hidden;
-}
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Helvetica Neue", sans-serif;
+      overflow: hidden;
+    }
 
     #timeline-embed {
       width: 100%;
@@ -73,19 +73,29 @@
       top: 50px;
       right: 25px;
     }
- .tl-attribution, .tl-credit, .tl-timenav-title, .tl-storyslider p {
+    /* 隐藏 TimelineJS 底部默认提示文字 */
+.tl-attribution {
   display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  height: 0 !important;
 }
+  </style>
 
   <!-- TimelineJS -->
-  <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-  <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+@@ -81,75 +85,79 @@
 </head>
 <body>
 <a href="index.html"
+   style="position: fixed;
+          top: 15px;
+          left: 20px;
+          color: #cccccc;
+          text-decoration: none;
+          font-weight: bold;
+          background: rgba(255,255,255,0.05);
+          padding: 6px 12px;
+          border-radius: 6px;
+          transition: background 0.3s;
+          z-index: 999999999;  /* ← 超高层级，确保浮在 TimelineJS 之上 */
+          pointer-events: auto;">
    style="
       position: fixed;
       top: 1.2vw;
@@ -104,86 +114,12 @@
 </a>
   
 </a>
- <!-- 固定右上角搜索栏（响应式） -->
-<div id="searchContainer">
-  <div id="searchLabel">Search</div>
-  <input type="text" id="searchBox" placeholder="Type to search..." />
-</div>
-<div id="searchResult"></div>
-
-<style>
-  /* 搜索容器：右上角固定，自动适配屏幕 */
-  #searchContainer {
-    position: fixed;
-    top: clamp(0.8rem, 1vw, 1.5rem);
-    right: clamp(1rem, 2vw, 2rem);
-    z-index: 10000;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.6em;
-    flex-wrap: wrap;
-  }
-
-  /* “Search”标签 */
-  #searchLabel {
-    background-color: #003366;
-    color: white;
-    font-weight: bold;
-    padding: 0.4em 0.9em;
-    border-radius: 1.2em;
-    font-size: clamp(0.8em, 1vw, 1em);
-    user-select: none;
-    white-space: nowrap;
-  }
-
-  /* 输入框（随屏幕宽度变化） */
-  #searchBox {
-    padding: 0.45em 0.9em;
-    font-size: clamp(0.8em, 1vw, 1em);
-    border: none;
-    border-radius: 1.2em;
-    outline: none;
-    width: clamp(160px, 20vw, 260px);
-    background-color: rgba(173, 216, 230, 0.3);
-    color: #fff;
-    transition: background-color 0.2s, width 0.2s;
-  }
-
-  #searchBox::placeholder {
-    color: #e0f7ff;
-  }
-
-  #searchBox:focus {
-    background-color: rgba(173, 216, 230, 0.6);
-    width: clamp(180px, 25vw, 280px);
-  }
-
-  /* 搜索结果文字 */
-  #searchResult {
-    position: fixed;
-    top: clamp(3.2rem, 4vw, 3.8rem);
-    right: clamp(1rem, 2vw, 2rem);
-    font-size: clamp(0.7em, 0.9vw, 0.9em);
-    color: #a6dfff;
-    text-align: right;
-  }
-
-  /* 小屏优化：上下排列 */
-  @media (max-width: 600px) {
-    #searchContainer {
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 0.4em;
-    }
-    #searchResult {
-      top: auto;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.8em;
-    }
-  }
-</style>
+  <!-- 固定右上角 -->
+  <div id="searchContainer">
+    <div id="searchLabel">Search</div>
+    <input type="text" id="searchBox" placeholder="Type to search..." />
+  </div>
+  <div id="searchResult"></div>
 
   <!-- 时间线主体 -->
   <div id="timeline-embed"></div>

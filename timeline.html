@@ -110,7 +110,19 @@
   <input type="text" id="searchBox" placeholder="Type to search..." />
 </div>
 <div id="searchResult"></div>
-
+/* 彻底隐藏 TimelineJS 默认提示与版权信息 */
+.tl-attribution,
+.tl-credit,
+.tl-timenav-title,
+.tl-storyslider p,
+.tl-caption,
+.tl-message {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
 <style>
   /* 搜索容器：右上角固定，自动适配屏幕 */
   #searchContainer {

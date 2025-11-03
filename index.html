@@ -132,6 +132,22 @@
       </div>
     </a>
   </section>
+<!-- 可视化图谱区域 -->
+<div id="graph-container" style="
+  position: fixed;
+  bottom: 20px;
+  right: 370px;
+  width: 400px;
+  height: 400px;
+  background: rgba(20,20,20,0.9);
+  border: 1px solid #4da6ff;
+  border-radius: 10px;
+  display: none; /* 初始隐藏 */
+  z-index: 9999;
+"></div>
+
+<!-- 加载 Vis.js -->
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
   <footer>
     © 2025 Satellite Art Archive · Created by gemige530-star
@@ -146,6 +162,9 @@
       <input id="userInput" type="text" placeholder="Ask AI...">
       <button id="sendBtn">Send</button>
     </div>
+    <button id="showGraphBtn" style="position: fixed; bottom: 440px; right: 20px; background:#0af; color:white; border:none; border-radius:8px; padding:8px 12px; cursor:pointer;">
+  🔍 Show Graph
+</button>
   </section>
 
   <script>
@@ -174,6 +193,12 @@
           body: JSON.stringify({ message: userMsg })
         });
         const data = await res.json();
+        // 检查 AI 回复中是否包含特定标识，例如 "graph:"
+if (data.reply.startsWith("graph:")) {
+  const graphData = JSON.parse(data.reply.replace("graph:", ""));
+  toggleGraph(graphData); // 调用图谱可视化函数
+  return; // 不显示普通聊天消息
+}
         loading.remove();
 
         const aiBubble = document.createElement("div");
@@ -190,6 +215,20 @@
     document.getElementById("userInput").addEventListener("keypress", (e) => {
       if (e.key === "Enter") sendMessage();
     });
+    // 显示或隐藏图谱
+function toggleGraph(data) {
+  const container = document.getElementById("graph-container");
+  container.style.display = "block"; // 显示图谱容器
+
+  const nodes = new vis.DataSet(data.nodes);
+  const edges = new vis.DataSet(data.edges);
+
+  const network = new vis.Network(container, { nodes, edges }, {
+    nodes: { color: "#4da6ff", font: { color: "#fff" } },
+    edges: { color: "#888" },
+    physics: { stabilization: false }
+  });
+}
   </script>
 
 </body>

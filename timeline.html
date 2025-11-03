@@ -73,6 +73,7 @@
       top: 50px;
       right: 25px;
     }
+    
   </style>
 
   <!-- TimelineJS -->
@@ -80,14 +81,24 @@
   <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 </head>
 <body>
-<a href="index.html" 
-   style="position: fixed; top: 15px; left: 20px;
-          color: white; text-decoration: none;
-          font-weight: bold; background: rgba(255,255,255,0.1);
-          padding: 6px 12px; border-radius: 6px;
-          z-index: 99999;
-          transition: background 0.3s;">
+<a href="index.html"
+   style="
+      position: fixed;
+      top: 1.2vw;
+      left: 2vw;
+      color: #cccccc;
+      text-decoration: none;
+      font-weight: 600;
+      background: rgba(255,255,255,0.05);
+      padding: 0.5em 1em;
+      border-radius: 0.6em;
+      font-size: clamp(12px, 1.2vw, 18px);  /* 随屏幕大小缩放字体 */
+      transition: background 0.3s, color 0.3s;
+      z-index: 999999999;
+      pointer-events: auto;">
   ← Back to Index
+</a>
+  
 </a>
   <!-- 固定右上角 -->
   <div id="searchContainer">

@@ -95,6 +95,55 @@
     #sendBtn:hover {
       background: #09f;
     }
+  /* —— 基础弹性与图片自适应 —— */
+img { max-width: 100%; height: auto; }
+
+/* 作品卡片容器改成弹性、可换行 */
+section[style*="display: flex"] {
+  flex-wrap: wrap;
+  gap: 1.5em;
+  margin: 2em auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* 单卡片最小宽度，自动挤压换行 */
+section a {
+  flex: 1 1 280px;
+  max-width: 360px;
+}
+
+/* 聊天框：宽度随视口缩放，避免溢出 */
+#chat-section {
+  width: min(320px, 92vw);
+  right: 2vw;
+  bottom: 2vh;
+}
+
+/* 输入区：保证按钮不挤压输入框 */
+#chat-input-area { display: flex; gap: 8px; }
+#userInput { min-width: 0; }
+
+/* —— 断点：平板及以下 —— */
+@media (max-width: 1024px) {
+  nav { display: flex; flex-wrap: wrap; gap: .5em; justify-content: center; }
+}
+
+/* —— 断点：手机竖屏 —— */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  p  { font-size: 1rem; }
+  #chat-section { width: 95vw; right: 2.5vw; bottom: 10px; }
+  #chat-window { max-height: 50vh; }
+  footer { font-size: .85em; padding: .6em 0; }
+}
+
+/* —— 断点：小手机 —— */
+@media (max-width: 480px) {
+  nav a { display: inline-block; margin: .2em .4em; }
+  section a { flex-basis: 100%; max-width: 100%; }
+}
+
   </style>
 </head>
 <body>

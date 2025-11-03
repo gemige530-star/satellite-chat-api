@@ -8,7 +8,7 @@
     html, body {
       height: 100%;
       margin: 0;
-      background-color: #000;
+      
       color: #fff;
       font-family: "Helvetica Neue", sans-serif;
       overflow: hidden;
@@ -73,7 +73,57 @@
       top: 50px;
       right: 25px;
     }
-    
+    /* 搜索区域自适应 */
+#searchContainer {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap; /* 当空间不足时自动换行 */
+}
+
+#searchLabel {
+  background-color: #003366;
+  color: white;
+  font-weight: bold;
+  padding: 0.45em 0.9em;
+  border-radius: 20px;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+#searchBox {
+  padding: 0.45em 0.9em;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  width: clamp(120px, 20vw, 220px); /* 自动适配宽度 */
+  background-color: rgba(173, 216, 230, 0.3);
+  color: #fff;
+  transition: background-color 0.2s, width 0.2s;
+}
+
+#searchBox:focus {
+  background-color: rgba(173, 216, 230, 0.6);
+}
+
+@media (max-width: 600px) {
+  #searchContainer {
+    top: 10px;
+    right: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  #searchBox {
+    width: 60vw;
+  }
+}
   </style>
 
   <!-- TimelineJS -->

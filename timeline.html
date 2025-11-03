@@ -80,13 +80,19 @@
   <link rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
 </head>
 <body>
-<a href="index.html" 
-   style="position: fixed; top: 15px; left: 20px;
-          color: white; text-decoration: none;
-          font-weight: bold; background: rgba(255,255,255,0.1);
-          padding: 6px 12px; border-radius: 6px;
-          z-index: 99999;
-          transition: background 0.3s;">
+<a href="index.html"
+   style="position: fixed;
+          top: 15px;
+          left: 20px;
+          color: #cccccc;
+          text-decoration: none;
+          font-weight: bold;
+          background: rgba(255,255,255,0.05);
+          padding: 6px 12px;
+          border-radius: 6px;
+          transition: background 0.3s;
+          z-index: 999999999;  /* ← 超高层级，确保浮在 TimelineJS 之上 */
+          pointer-events: auto;">
   ← Back to Index
 </a>
   <!-- 固定右上角 -->

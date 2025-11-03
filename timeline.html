@@ -73,55 +73,61 @@
       top: 50px;
       right: 25px;
     }
-    /* 搜索区域自适应 */
+    /* 搜索区域放在输入框内，整体自适应 */
 #searchContainer {
   position: fixed;
   top: 20px;
   right: 25px;
   z-index: 10000;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap; /* 当空间不足时自动换行 */
+  width: clamp(150px, 30vw, 300px);
 }
 
-#searchLabel {
-  background-color: #003366;
-  color: white;
-  font-weight: bold;
-  padding: 0.45em 0.9em;
-  border-radius: 20px;
-  font-size: 0.9em;
-  white-space: nowrap;
+.search-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 #searchBox {
-  padding: 0.45em 0.9em;
+  width: 100%;
+  padding: 0.5em 2.4em 0.5em 1em; /* 右侧留出图标空间 */
   font-size: 0.9em;
   border: none;
   border-radius: 20px;
   outline: none;
-  width: clamp(120px, 20vw, 220px); /* 自动适配宽度 */
   background-color: rgba(173, 216, 230, 0.3);
   color: #fff;
-  transition: background-color 0.2s, width 0.2s;
+  transition: background-color 0.2s;
+}
+
+#searchBox::placeholder {
+  color: #e0f7ff;
 }
 
 #searchBox:focus {
   background-color: rgba(173, 216, 230, 0.6);
 }
 
+#searchLabel {
+  position: absolute;
+  right: 0.8em;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e0f7ff;
+  font-weight: bold;
+  pointer-events: none;
+  font-size: 1em;
+}
+
+/* 小屏幕自适应 */
 @media (max-width: 600px) {
   #searchContainer {
     top: 10px;
     right: 10px;
-    flex-direction: column;
-    align-items: flex-end;
+    width: 70vw;
   }
 
   #searchBox {
-    width: 60vw;
+    font-size: 0.85em;
   }
 }
   </style>
@@ -150,15 +156,13 @@
 </a>
   
 </a>
-  <!-- 固定右上角 -->
   <div id="searchContainer">
-    <div id="searchLabel">Search</div>
-    <input type="text" id="searchBox" placeholder="Type to search..." />
+  <div class="search-wrapper">
+    <input type="text" id="searchBox" placeholder="Search..." />
+    <span id="searchLabel">🔍</span>
   </div>
-  <div id="searchResult"></div>
-
-  <!-- 时间线主体 -->
-  <div id="timeline-embed"></div>
+</div>
+<div id="searchResult"></div>
 
   <script>
     const jsonUrl = "https://satelliteartarchive.dpdns.org/assets/timeline.json";

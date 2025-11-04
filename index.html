@@ -289,20 +289,14 @@ if (data.reply.startsWith("graph:")) {
         loading.remove();
 
         const aiBubble = document.createElement("div");
-        aiBubble.innerHTML = `
-  <div style="
-    display: inline-block;
-    background: #333;
-    padding: 8px 12px;
-    border-radius: 10px;
-    margin: 4px 0;
-    max-width: 90%;
-    text-align: justify;
-    text-justify: inter-word;
-    line-height: 1.6;
-  ">
-    ${data.reply}
-  </div>`;
+        aiBubble.innerHTML = `<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;">${data.reply}</div>`;
+        history.appendChild(aiBubble);
+        history.scrollTop = history.scrollHeight;
+      } catch (err) {
+        loading.textContent = "Error connecting to AI.";
+        loading.style.color = "red";
+      }
+    }
 
     document.getElementById("sendBtn").addEventListener("click", sendMessage);
     document.getElementById("userInput").addEventListener("keypress", (e) => {

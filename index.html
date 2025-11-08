@@ -255,81 +255,133 @@ section a {
 </section>
 
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const history = document.getElementById("chat-history");
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const history = document.getElementById("chat-history");
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
 
-      const userBubble = document.createElement("div");
-      userBubble.style.textAlign = "right";
-      userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
-      history.appendChild(userBubble);
-      input.value = "";
+    // 用户气泡
+    const userBubble = document.createElement("div");
+    userBubble.style.textAlign = "right";
+    userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
+    history.appendChild(userBubble);
+    input.value = "";
 
-      const loading = document.createElement("div");
-      loading.textContent = "AI is typing...";
-      loading.style.color = "#888";
-      history.appendChild(loading);
-      history.scrollTop = history.scrollHeight;
+    // “AI 正在输入”提示
+    const loading = document.createElement("div");
+    loading.textContent = "AI is thinking...";
+    loading.style.color = "#888";
+    history.appendChild(loading);
+    history.scrollTop = history.scrollHeight;
 
-      try {
-        const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMsg })
-        });
-        const data = await res.json();
-        // 检查 AI 回复中是否包含特定标识，例如 "graph:"
-if (data.reply.startsWith("graph:")) {
-  const graphData = JSON.parse(data.reply.replace("graph:", ""));
-  toggleGraph(graphData); // 调用图谱可视化函数
-  return; // 不显示普通聊天消息
-}
-        loading.remove();
+    try {
+      // 调用你自己的 Vercel API
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
+      });
 
+      const data = await res.json();
+      loading.remove();
+
+      // 如果返回的是图
+      if (data.type === "graph" && data.graph_spec) {
         const aiBubble = document.createElement("div");
-       aiBubble.innerHTML = `
-  <div style="
-    display: inline-block;
-    background: #333;
-    padding: 8px 12px;
-    border-radius: 10px;
-    margin: 4px 0;
-    max-width: 90%;
-    text-align: justify;
-    text-justify: inter-word;
-    line-height: 1.6;
-  ">
-    ${data.reply}
-  </div>`;
+        aiBubble.innerHTML = `
+          <div style="
+            display:inline-block;
+            background:#222;
+            padding:8px 12px;
+            border-radius:10px;
+            margin:4px 0;
+            color:#4da6ff;
+          ">
+            Generated relation graph:
+          </div>`;
         history.appendChild(aiBubble);
         history.scrollTop = history.scrollHeight;
-      } catch (err) {
-        loading.textContent = "Error connecting to AI.";
-        loading.style.color = "red";
+
+        toggleGraph(data.graph_spec); // 调用绘图函数
+        return;
       }
+
+      // 否则为文字回答
+      const aiBubble = document.createElement("div");
+      aiBubble.innerHTML = `
+        <div style="
+          display:inline-block;
+          background:#333;
+          padding:8px 12px;
+          border-radius:10px;
+          margin:4px 0;
+          max-width:90%;
+          text-align:justify;
+          line-height:1.6;
+        ">
+          ${data.message || data.reply}
+        </div>`;
+      history.appendChild(aiBubble);
+      history.scrollTop = history.scrollHeight;
+    } catch (err) {
+      loading.textContent = "Error connecting to AI.";
+      loading.style.color = "red";
     }
+  }
 
-    document.getElementById("sendBtn").addEventListener("click", sendMessage);
-    document.getElementById("userInput").addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-    // 显示或隐藏图谱
-function toggleGraph(data) {
-  const container = document.getElementById("graph-container");
-  container.style.display = "block"; // 显示图谱容器
-
-  const nodes = new vis.DataSet(data.nodes);
-  const edges = new vis.DataSet(data.edges);
-
-  const network = new vis.Network(container, { nodes, edges }, {
-    nodes: { color: "#4da6ff", font: { color: "#fff" } },
-    edges: { color: "#888" },
-    physics: { stabilization: false }
+  document.getElementById("sendBtn").addEventListener("click", sendMessage);
+  document.getElementById("userInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
   });
-}
-  </script>
 
-</body>
-</html>
+  // ===== 图谱部分 =====
+  function toggleGraph(graphSpec) {
+    const container = document.getElementById("graph-container");
+    container.style.display = "block";
+    container.innerHTML = ""; // 清空旧图
+
+    const nodes = new vis.DataSet(graphSpec.nodes);
+    const edges = new vis.DataSet(graphSpec.edges);
+
+    const network = new vis.Network(
+      container,
+      { nodes, edges },
+      {
+        nodes: {
+          color: "#4da6ff",
+          font: { color: "#fff" },
+          shape: "dot",
+          size: 12
+        },
+        edges: {
+          color: "#888",
+          smooth: true
+        },
+        physics: { stabilization: true },
+        layout: { improvedLayout: true }
+      }
+    );
+  }
+
+  // “Show Graph” 按钮 — 测试用，点击会从本地 JSON 加载演示
+  document.getElementById("showGraphBtn").addEventListener("click", async () => {
+    const res = await fetch("satellite_art.json");
+    const data = await res.json();
+    const fakeGraph = {
+      graph_type: "orbit_total",
+      nodes: [
+        { id: "Earth", label: "Earth", category: "center" },
+        { id: "LEO", label: "LEO", category: "orbit" },
+        { id: "MEO", label: "MEO", category: "orbit" },
+        { id: "GEO", label: "GEO", category: "orbit" }
+      ],
+      edges: [
+        { source: "Earth", target: "LEO" },
+        { source: "Earth", target: "MEO" },
+        { source: "Earth", target: "GEO" }
+      ]
+    };
+    toggleGraph(fakeGraph);
+  });
+</script>

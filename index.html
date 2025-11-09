@@ -203,6 +203,21 @@ section a {
   display: none; /* 初始隐藏 */
   z-index: 9999;
 "></div>
+  <!-- 下载按钮 -->
+<button id="downloadGraphBtn" style="
+  position: fixed;
+  bottom: 430px;
+  right: 370px;
+  background:#0af;
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:6px 10px;
+  cursor:pointer;
+  display:none;
+  z-index:10000;
+">⬇ Download Graph</button>
+
 
 <!-- 加载 Vis.js -->
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
@@ -318,7 +333,9 @@ if (data.reply.startsWith("graph:")) {
     // 显示或隐藏图谱
 function toggleGraph(data) {
   const container = document.getElementById("graph-container");
-  container.style.display = "block"; // 显示图谱容器
+  const downloadBtn = document.getElementById("downloadGraphBtn");
+  container.style.display = "block";
+  downloadBtn.style.display = "inline-block";
 
   const nodes = new vis.DataSet(data.nodes);
   const edges = new vis.DataSet(data.edges);
@@ -328,8 +345,13 @@ function toggleGraph(data) {
     edges: { color: "#888" },
     physics: { stabilization: false }
   });
-}
-  </script>
 
-</body>
-</html>
+  // 下载功能
+  downloadBtn.onclick = () => {
+    const canvas = container.querySelector("canvas");
+    const link = document.createElement("a");
+    link.href = canvas.toDataURL("image/png");
+    link.download = "semantic-graph.png";
+    link.click();
+  };
+}

@@ -1,7 +1,22 @@
 import fs from "fs/promises";
-// ✅ 载入 satellite_art.json
-const raw = await fs.readFile("./satellite_art.json", "utf-8");
-const satelliteData = JSON.parse(raw);
+
+export const config = {
+  runtime: "nodejs",
+};
+
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST")
+    return res.status(405).json({ error: "Method not allowed" });
+
+  try {
+    // ✅ 把 JSON 加载移到函数内部
+    const raw = await fs.readFile("./satellite_art.json", "utf-8");
+    const satelliteData = JSON.parse(raw);
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");

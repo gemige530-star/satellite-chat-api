@@ -1,100 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Satellite Art Graph</title>
-  <style>
-    body { background:#000; color:#fff; font-family:sans-serif; text-align:center; margin:0; padding:20px; }
-    input { width:400px; padding:8px; border-radius:6px; border:1px solid #444; background:#111; color:#fff; }
-    button { padding:8px 16px; margin-left:8px; border:none; border-radius:6px; cursor:pointer; background:#f0f0f0; color:#000; }
-    svg { margin-top:20px; border:1px solid #333; border-radius:10px; background:#111; }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Satellite Art Archive · Relation Graph</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  margin: 20px;
+}
+input {
+  width: 300px;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+}
+button {
+  padding: 8px 16px;
+  margin-left: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #f0f0f0;
+  color: #000;
+}
+svg {
+  margin-top: 20px;
+  border: 1px solid #333;
+  border-radius: 10px;
+  background: #111;
+}
+</style>
 </head>
+
 <body>
   <h1>Satellite Art Archive · Relation Graph</h1>
   <p>Enter a prompt (e.g. "show orbit distribution" or "show country and orbit relations")</p>
+
   <input id="prompt" value="show orbit distribution">
   <button onclick="generate()">Generate</button>
+
   <div id="status"></div>
   <svg id="graph" width="800" height="500"></svg>
 
   <script>
-    async function generate() {
-      const prompt = document.getElementById("prompt").value;
-      document.getElementById("status").textContent = "Loading...";
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt })
-      });
-      const data = await res.json();
-      renderGraph(data.graph_spec);
-      document.getElementById("status").textContent = data.graph_spec.graph_type;
+  async function generate() {
+    const prompt = document.getElementById("prompt").value;
+    document.getElementById("status").textContent = "Loading...";
+
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
+
+    const data = await res.json();
+
+    // ✅ 修改 2：解析返回格式
+    if (data.type === "graph" && data.data) {
+      // ✅ 修改 3：调整绘图函数输入结构
+      renderGraph(data.data);
+      document.getElementById("status").textContent = "✅ 语义图已生成";
+    } else if (data.type === "text" && data.reply) {
+      document.getElementById("status").textContent = data.reply;
+    } else {
+      document.getElementById("status").textContent = "AI 返回格式不符合预期";
+    }
+  }
+
+  function renderGraph(graph) {
+    const svg = document.getElementById("graph");
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+
+    const g = graph.graph_spec || graph; // 兼容旧/新结构
+    if (!g || !g.graph_type) {
+      document.getElementById("status").textContent = "❌ 缺少图类型信息";
+      return;
     }
 
-    function renderGraph(g) {
-      const svg = document.getElementById("graph");
-      while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (g.graph_type === "orbit_total") {
+      drawOrbitGraph(svg, g);
+    } else {
+      drawCountryOrbitGraph(svg, g);
+    }
+  }
 
-      if (g.graph_type === "orbit_total") drawOrbitGraph(svg, g);
-      else drawCountryOrbitGraph(svg, g);
-    }
+  function drawOrbitGraph(svg, g) {
+    const w = svg.width.baseVal.value, h = svg.height.baseVal.value;
+    const cx = w / 2, cy = h / 2;
 
-    function drawOrbitGraph(svg, g) {
-      const w = svg.width.baseVal.value, h = svg.height.baseVal.value;
-      const cx = w/2, cy = h/2;
-      const orbits = g.nodes.filter(n => n.category==="orbit");
-      const max = Math.max(...orbits.map(n=>n.count));
-      circle(svg,cx,cy,20,"#fff");
-      text(svg,cx,cy+5,"Earth",10,"#000");
-      orbits.forEach((n,i)=>{
-        const r = 60 + i*40;
-        const sw = 2 + n.count/max*8;
-        circle(svg,cx,cy,r,"none","#777",sw);
-        text(svg,cx,cy-r-8,`${n.label}: ${n.count}`,10,"#fff");
-      });
-    }
+    const orbits = g.nodes.filter(n => n.category === "orbit");
+    const max = Math.max(...orbits.map(n => n.count));
 
-    function drawCountryOrbitGraph(svg,g){
-      const w=svg.width.baseVal.value,h=svg.height.baseVal.value;
-      const cs=g.nodes.filter(n=>n.category==="country");
-      const os=g.nodes.filter(n=>n.category==="orbit");
-      const cy=i=>(i+1)*h/(cs.length+1);
-      const oy=i=>(i+1)*h/(os.length+1);
-      cs.forEach((c,i)=>{circle(svg,100,cy(i),4,"#fff");text(svg,115,cy(i)+3,`${c.label} (${c.count})`,10,"#fff","start");});
-      os.forEach((o,i)=>{circle(svg,w-100,oy(i),4,"#888");text(svg,w-115,oy(i)+3,`${o.label} (${o.count})`,10,"#fff","end");});
-      g.edges.forEach(e=>{
-        const ci=cs.findIndex(c=>c.id===e.source),oi=os.findIndex(o=>o.id===e.target);
-        if(ci<0||oi<0)return;
-        line(svg,104,cy(ci),w-104,oy(oi),"#555",e.weight,0.7);
-      });
-    }
+    circle(svg, cx, cy, 20, "#fff");
+    text(svg, cx, cy + 5, "Earth", 10, "#000");
 
-    function circle(svg,cx,cy,r,fill,stroke,sw){
-      const el=document.createElementNS("http://www.w3.org/2000/svg","circle");
-      el.setAttribute("cx",cx);el.setAttribute("cy",cy);el.setAttribute("r",r);
-      if(fill)el.setAttribute("fill",fill);
-      if(stroke){el.setAttribute("stroke",stroke);el.setAttribute("stroke-width",sw||1);}
-      svg.appendChild(el);
+    orbits.forEach((n, i) => {
+      const r = 60 + i * 40;
+      const sw = 2 + (n.count / max) * 8;
+      circle(svg, cx, cy, r, "none", "#777", sw);
+      text(svg, cx, cy - r - 8, `${n.label}: ${n.count}`, 10, "#fff");
+    });
+  }
+
+  function drawCountryOrbitGraph(svg, g) {
+    const w = svg.width.baseVal.value, h = svg.height.baseVal.value;
+    const cs = g.nodes.filter(n => n.category === "country");
+    const os = g.nodes.filter(n => n.category === "orbit");
+
+    const cy = i => (i + 1) * h / (cs.length + 1);
+    const oy = i => (i + 1) * h / (os.length + 1);
+
+    cs.forEach((c, i) => {
+      circle(svg, 100, cy(i), 4, "#fff");
+      text(svg, 115, cy(i) + 3, `${c.label} (${c.count})`, 10, "#fff", "start");
+    });
+
+    os.forEach((o, i) => {
+      circle(svg, w - 100, oy(i), 4, "#888");
+      text(svg, w - 115, oy(i) + 3, `${o.label} (${o.count})`, 10, "#fff", "end");
+    });
+
+    g.edges.forEach(e => {
+      const ci = cs.findIndex(c => c.id === e.source);
+      const oi = os.findIndex(o => o.id === e.target);
+      if (ci < 0 || oi < 0) return;
+      line(svg, 104, cy(ci), w - 104, oy(oi), "#555", e.weight, 0.7);
+    });
+  }
+
+  function circle(svg, cx, cy, r, fill, stroke, sw) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    el.setAttribute("cx", cx);
+    el.setAttribute("cy", cy);
+    el.setAttribute("r", r);
+    if (fill) el.setAttribute("fill", fill);
+    if (stroke) {
+      el.setAttribute("stroke", stroke);
+      el.setAttribute("stroke-width", sw || 1);
     }
-    function text(svg,x,y,content,size,fill,anchor){
-      const el=document.createElementNS("http://www.w3.org/2000/svg","text");
-      el.setAttribute("x",x);el.setAttribute("y",y);
-      el.setAttribute("font-size",size);
-      el.setAttribute("fill",fill);
-      if(anchor)el.setAttribute("text-anchor",anchor);
-      el.textContent=content;
-      svg.appendChild(el);
-    }
-    function line(svg,x1,y1,x2,y2,stroke,sw,op){
-      const el=document.createElementNS("http://www.w3.org/2000/svg","line");
-      el.setAttribute("x1",x1);el.setAttribute("y1",y1);
-      el.setAttribute("x2",x2);el.setAttribute("y2",y2);
-      el.setAttribute("stroke",stroke);
-      el.setAttribute("stroke-width",sw||1);
-      if(op)el.setAttribute("opacity",op);
-      svg.appendChild(el);
-    }
+    svg.appendChild(el);
+  }
+
+  function text(svg, x, y, content, size, fill, anchor) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    el.setAttribute("x", x);
+    el.setAttribute("y", y);
+    el.setAttribute("font-size", size);
+    el.setAttribute("fill", fill);
+    if (anchor) el.setAttribute("text-anchor", anchor);
+    el.textContent = content;
+    svg.appendChild(el);
+  }
+
+  function line(svg, x1, y1, x2, y2, stroke, sw, op) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    el.setAttribute("x1", x1);
+    el.setAttribute("y1", y1);
+    el.setAttribute("x2", x2);
+    el.setAttribute("y2", y2);
+    el.setAttribute("stroke", stroke);
+    el.setAttribute("stroke-width", sw || 1);
+    if (op) el.setAttribute("opacity", op);
+    svg.appendChild(el);
+  }
   </script>
 </body>
 </html>

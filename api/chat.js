@@ -19,7 +19,8 @@ export default async function handler(req, res) {
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
 
     // 1️⃣ 如果用户要求“生成语义图”，则读取 satellite_art.json 并处理
-    if (/语义图|semantic graph|graph/i.test(message)) {
+    if (/生成语义图|语义图|semantic\s*graph/i.test(message.trim())) {
+  console.log(">>> ✅ 语义图逻辑触发");
       // 读取本地 JSON 数据
       const raw = await fs.readFile("out/satellite_art.json", "utf-8");
       const data = JSON.parse(raw);

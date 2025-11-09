@@ -308,15 +308,10 @@ section a {
       loading.remove();
 
       // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
-     if (data.type === "graph" && data.data) {
-  toggleGraph(data.data);
-  return;
-} else if (data.graph || data.graph_spec || data.data?.graph) {
-  // 兼容后端返回 graph / graph_spec / data.graph 等结构
-  const g = data.graph || data.graph_spec || data.data?.graph;
-  toggleGraph(g);
-  return;
-}
+      if (data.type === "graph" && data.data) {
+        toggleGraph(data.data);
+        return; // 不再额外显示文本气泡
+      }
 
       // ② 普通文本响应：{ reply: "..." }
       if (data.reply) {

@@ -5,6 +5,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
+  // ✅ 允许跨域
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -13,19 +14,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
 
   try {
-    // ✅ 把 JSON 加载移到函数内部
+    // ✅ 加载本地 JSON 数据
     const raw = await fs.readFile("./satellite_art.json", "utf-8");
     const satelliteData = JSON.parse(raw);
 
-export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST")
-    return res.status(405).json({ error: "Method not allowed" });
-
-  try {
     const body = req.body ?? (await req.json?.());
     const prompt = body?.prompt || body?.message;
     if (!prompt)
@@ -35,42 +27,43 @@ export default async function handler(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
 
-  // ✅ 从 satellite_art.json 生成语义网络
-graph_type = "semantic_art";
-nodes = [];
-edges = [];
+    // ✅ 如果是语义网络请求
+    if (prompt.toLowerCase().includes("semantic network")) {
+      const graph_type = "semantic_art";
+      const nodes = [];
+      const edges = [];
 
-for (const item of satelliteData) {
-  const artNode = { id: item.name, label: item.name, category: "art", group: 1 };
-  nodes.push(artNode);
+      for (const item of satelliteData) {
+        const artNode = { id: item.name, label: item.name, category: "art", group: 1 };
+        nodes.push(artNode);
 
-  if (item.artist) {
-    const artistNode = { id: item.artist, label: item.artist, category: "artist", group: 2 };
-    if (!nodes.find(n => n.id === artistNode.id)) nodes.push(artistNode);
-    edges.push({ source: item.artist, target: item.name, weight: 1 });
-  }
+        if (item.artist) {
+          const artistNode = { id: item.artist, label: item.artist, category: "artist", group: 2 };
+          if (!nodes.find((n) => n.id === artistNode.id)) nodes.push(artistNode);
+          edges.push({ source: item.artist, target: item.name, weight: 1 });
+        }
 
-  if (item.country) {
-    const countryNode = { id: item.country, label: item.country, category: "country", group: 3 };
-    if (!nodes.find(n => n.id === countryNode.id)) nodes.push(countryNode);
-    edges.push({ source: item.name, target: item.country, weight: 0.8 });
-  }
+        if (item.country) {
+          const countryNode = { id: item.country, label: item.country, category: "country", group: 3 };
+          if (!nodes.find((n) => n.id === countryNode.id)) nodes.push(countryNode);
+          edges.push({ source: item.name, target: item.country, weight: 0.8 });
+        }
 
-  if (item.year) {
-    const yearNode = { id: item.year, label: item.year.toString(), category: "year", group: 4 };
-    if (!nodes.find(n => n.id === yearNode.id)) nodes.push(yearNode);
-    edges.push({ source: item.name, target: item.year.toString(), weight: 0.5 });
-  }
-}
+        if (item.year) {
+          const yearNode = { id: item.year, label: item.year.toString(), category: "year", group: 4 };
+          if (!nodes.find((n) => n.id === yearNode.id)) nodes.push(yearNode);
+          edges.push({ source: item.name, target: item.year.toString(), weight: 0.5 });
+        }
+      }
 
-      console.log(">>> ✅ 图表数据生成完毕");
+      console.log("✅ semantic_art 图表数据生成完毕");
       return res.status(200).json({
         type: "graph",
         data: { graph_type, nodes, edges },
       });
     }
 
-    // ✅ 逻辑2：普通文字回复
+    // ✅ 普通 AI 对话逻辑
     const systemPrompt = isChinese
       ? "你是一位理性、简洁、自然流畅又富于生气的中文学者，用平实但有思想的语言表达，不要使用模板化或客套语气。"
       : "You are a rational, concise, and eloquent scholar. Write in natural, vivid English that is thoughtful yet unpretentious.";

@@ -273,89 +273,128 @@ section a {
   </div>
 </section>
 
-  <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const history = document.getElementById("chat-history");
-      const userMsg = input.value.trim();
-      if (!userMsg) return;
+ <script>
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const history = document.getElementById("chat-history");
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
 
-      const userBubble = document.createElement("div");
-      userBubble.style.textAlign = "right";
-      userBubble.innerHTML = `<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">${userMsg}</div>`;
-      history.appendChild(userBubble);
-      input.value = "";
+    // 显示用户消息
+    const userBubble = document.createElement("div");
+    userBubble.style.textAlign = "right";
+    userBubble.innerHTML =
+      '<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">'
+      + userMsg +
+      "</div>";
+    history.appendChild(userBubble);
+    input.value = "";
 
-      const loading = document.createElement("div");
-      loading.textContent = "AI is typing...";
-      loading.style.color = "#888";
-      history.appendChild(loading);
-      history.scrollTop = history.scrollHeight;
+    // 显示 loading
+    const loading = document.createElement("div");
+    loading.textContent = "AI is typing...";
+    loading.style.color = "#888";
+    history.appendChild(loading);
+    history.scrollTop = history.scrollHeight;
 
-      try {
-        const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: userMsg })
-        });
-        const data = await res.json();
-        // 检查 AI 回复中是否包含特定标识，例如 "graph:"
-if (data.reply.startsWith("graph:")) {
-  const graphData = JSON.parse(data.reply.replace("graph:", ""));
-  toggleGraph(graphData); // 调用图谱可视化函数
-  return; // 不显示普通聊天消息
-}
-        loading.remove();
+    try {
+      const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
+      });
 
+      const data = await res.json();
+      loading.remove();
+
+      // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
+      if (data.type === "graph" && data.data) {
+        toggleGraph(data.data);
+        return; // 不再额外显示文本气泡
+      }
+
+      // ② 普通文本响应：{ reply: "..." }
+      if (data.reply) {
         const aiBubble = document.createElement("div");
-       aiBubble.innerHTML = `
-  <div style="
-    display: inline-block;
-    background: #333;
-    padding: 8px 12px;
-    border-radius: 10px;
-    margin: 4px 0;
-    max-width: 90%;
-    text-align: justify;
-    text-justify: inter-word;
-    line-height: 1.6;
-  ">
-    ${data.reply}
-  </div>`;
+        aiBubble.innerHTML =
+          '<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;max-width:90%;text-align:justify;text-justify:inter-word;line-height:1.6;">'
+          + data.reply +
+          "</div>";
         history.appendChild(aiBubble);
         history.scrollTop = history.scrollHeight;
-      } catch (err) {
-        loading.textContent = "Error connecting to AI.";
-        loading.style.color = "red";
+        return;
       }
+
+      // ③ 异常情况：没有 reply / type
+      const errorBubble = document.createElement("div");
+      errorBubble.style.color = "red";
+      errorBubble.textContent = "AI 返回格式不符合预期。";
+      history.appendChild(errorBubble);
+
+    } catch (err) {
+      loading.textContent = "Error connecting to AI.";
+      loading.style.color = "red";
+      console.error(err);
     }
+  }
 
-    document.getElementById("sendBtn").addEventListener("click", sendMessage);
-    document.getElementById("userInput").addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
-    });
-    // 显示或隐藏图谱
-function toggleGraph(data) {
-  const container = document.getElementById("graph-container");
-  const downloadBtn = document.getElementById("downloadGraphBtn");
-  container.style.display = "block";
-  downloadBtn.style.display = "inline-block";
-
-  const nodes = new vis.DataSet(data.nodes);
-  const edges = new vis.DataSet(data.edges);
-
-  const network = new vis.Network(container, { nodes, edges }, {
-    nodes: { color: "#4da6ff", font: { color: "#fff" } },
-    edges: { color: "#888" },
-    physics: { stabilization: false }
+  document.getElementById("sendBtn").addEventListener("click", sendMessage);
+  document.getElementById("userInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
   });
 
-  // 下载功能
-  downloadBtn.onclick = () => {
-    const canvas = container.querySelector("canvas");
-    const link = document.createElement("a");
-    link.href = canvas.toDataURL("image/png");
-    link.download = "semantic-graph.png";
-    link.click();
-  };
-}
+  // 语义图渲染 + 下载
+  function toggleGraph(graphData) {
+    const container = document.getElementById("graph-container");
+    const downloadBtn = document.getElementById("downloadGraphBtn");
+
+    container.style.display = "block";
+    downloadBtn.style.display = "inline-block";
+
+    // 后端返回的是 data: { nodes, links }
+    const nodes = new vis.DataSet(
+      (graphData.nodes || []).map(n => ({
+        id: n.id,
+        label: n.id,
+        color: n.type === "keyword" ? "#97c2fc" : "#4da6ff"
+      }))
+    );
+
+    const edges = new vis.DataSet(
+      (graphData.links || []).map(l => ({
+        from: l.source,
+        to: l.target,
+        arrows: "to"
+      }))
+    );
+
+    const network = new vis.Network(
+      container,
+      { nodes, edges },
+      {
+        nodes: {
+          shape: "dot",
+          size: 12,
+          font: { color: "#ffffff" }
+        },
+        edges: {
+          color: "#888",
+          smooth: true
+        },
+        physics: {
+          stabilization: true
+        }
+      }
+    );
+
+    // 下载当前图为 PNG
+    downloadBtn.onclick = () => {
+      const canvas = container.querySelector("canvas");
+      if (!canvas) return;
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "semantic-graph.png";
+      link.click();
+    };
+  }
+</script>

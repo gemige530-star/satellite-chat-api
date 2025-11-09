@@ -279,30 +279,7 @@ section a {
     const history = document.getElementById("chat-history");
     const userMsg = input.value.trim();
     if (!userMsg) return;
-async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const history = document.getElementById("chat-history");
-  const userMsg = input.value.trim();
-  if (!userMsg) return;
 
-  // --- 本地指令识别（生成柱状图） ---
-  if (
-    userMsg.toLowerCase().includes("bar chart") ||
-    userMsg.toLowerCase().includes("柱状图")
-  ) {
-    const notice = document.createElement("div");
-    notice.innerHTML =
-      '<div style="color:#0af;margin:6px 0;">📊 Generating bar chart...</div>';
-    history.appendChild(notice);
-    input.value = "";
-    history.scrollTop = history.scrollHeight;
-    renderBarChart();
-    return;
-  }
-
-  // 显示用户消息
-  const userBubble = document.createElement("div");
-  ...
     // 显示用户消息
     const userBubble = document.createElement("div");
     userBubble.style.textAlign = "right";
@@ -478,4 +455,3 @@ async function renderBarChart() {
 // 让图表在页面加载完成后渲染
 window.addEventListener('load', renderBarChart);
 </script>
-

@@ -51,14 +51,31 @@ export default async function handler(req, res) {
         }
       });
 
-      return res.status(200).json({
-        type: "graph",
-        keyword,
-        nodeCount: nodes.length,
-        linkCount: links.length,
-        data: { nodes, links },
-      });
-    }
+     try {
+  const nodes = [
+    { id: "卫星艺术", group: 1 },
+    { id: "太空想象", group: 2 },
+    { id: "技术媒介", group: 2 },
+    { id: "艺术家", group: 3 },
+  ];
+
+  const links = [
+    { source: "卫星艺术", target: "太空想象" },
+    { source: "卫星艺术", target: "技术媒介" },
+    { source: "卫星艺术", target: "艺术家" },
+  ];
+
+  console.log(">>> ✅ 语义图数据生成完毕");
+
+  return res.status(200).json({
+    type: "graph",
+    data: { nodes, links },
+  });
+} catch (error) {
+  console.error("语义图错误:", error);
+  return res.status(500).json({ error: "语义图生成失败" });
+}
+
 
     // 2️⃣ 否则，走正常对话流程
     const chineseSystemPrompt =

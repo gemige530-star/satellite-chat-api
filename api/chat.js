@@ -1,5 +1,7 @@
 import fs from "fs/promises";
-
+// ✅ 载入 satellite_art.json
+const raw = await fs.readFile("./satellite_art.json", "utf-8");
+const satelliteData = JSON.parse(raw);
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");

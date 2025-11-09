@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 800px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"font": {"color": "#000000"}, "group": "Artist", "id": "Alexei Arkhipovich Leonov", "label": "Alexei Arkhipovich Leonov", "shape": "dot", "title": "Artist: Alexei Arkhipovich Leonov"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Soviet", "label": "Soviet", "shape": "dot", "title": "Country: Soviet"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "LEO", "label": "LEO", "shape": "dot", "title": "Orbit/Location: LEO"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Forrest Myers, Andy Warhol, Robert Rauschenberg, David Novros, Claes Oldenburg,  John Chamberlain", "label": "Forrest Myers, Andy Warhol, Robert Rauschenberg, David Novros, Claes Oldenburg,  John Chamberlain", "shape": "dot", "title": "Artist: Forrest Myers, Andy Warhol, Robert Rauschenberg, David Novros, Claes Oldenburg,  John Chamberlain"}, {"font": {"color": "#000000"}, "group": "Country", "id": "USA", "label": "USA", "shape": "dot", "title": "Country: USA"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "Moon", "label": "Moon", "shape": "dot", "title": "Orbit/Location: Moon"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Paul Van Hoeydonck", "label": "Paul Van Hoeydonck", "shape": "dot", "title": "Artist: Paul Van Hoeydonck"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Belgium", "label": "Belgium", "shape": "dot", "title": "Country: Belgium"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Carl Sagan ,  Frank Drake, Linda Salzman Sagan, Jon Lomberg", "label": "Carl Sagan ,  Frank Drake, Linda Salzman Sagan, Jon Lomberg", "shape": "dot", "title": "Artist: Carl Sagan ,  Frank Drake, Linda Salzman Sagan, Jon Lomberg"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "Deep Space", "label": "Deep Space", "shape": "dot", "title": "Orbit/Location: Deep Space"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Carl Sagan\u3001Linda Salzman Sagan\u3001Frank Drake\u3001Ann Druyan\u3001Jon Lomberg et al.", "label": "Carl Sagan\u3001Linda Salzman Sagan\u3001Frank Drake\u3001Ann Druyan\u3001Jon Lomberg et al.", "shape": "dot", "title": "Artist: Carl Sagan\u3001Linda Salzman Sagan\u3001Frank Drake\u3001Ann Druyan\u3001Jon Lomberg et al."}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Eduardo Kac", "label": "Eduardo Kac", "shape": "dot", "title": "Artist: Eduardo Kac"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Arthur Woods", "label": "Arthur Woods", "shape": "dot", "title": "Artist: Arthur Woods"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Switzerland", "label": "Switzerland", "shape": "dot", "title": "Country: Switzerland"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "Mir", "label": "Mir", "shape": "dot", "title": "Orbit/Location: Mir"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Russia", "label": "Russia", "shape": "dot", "title": "Country: Russia"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Twenty international artists", "label": "Twenty international artists", "shape": "dot", "title": "Artist: Twenty international artists"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Ragnhild Becker \u0026 Gunar Seitz", "label": "Ragnhild Becker \u0026 Gunar Seitz", "shape": "dot", "title": "Artist: Ragnhild Becker \u0026 Gunar Seitz"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Germany", "label": "Germany", "shape": "dot", "title": "Country: Germany"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Takao Fujiwara", "label": "Takao Fujiwara", "shape": "dot", "title": "Artist: Takao Fujiwara"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "ISS", "label": "ISS", "shape": "dot", "title": "Orbit/Location: ISS"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Japan", "label": "Japan", "shape": "dot", "title": "Country: Japan"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Takuro Osaka", "label": "Takuro Osaka", "shape": "dot", "title": "Artist: Takuro Osaka"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Brazil", "label": "Brazil", "shape": "dot", "title": "Country: Brazil"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Takura Osaka", "label": "Takura Osaka", "shape": "dot", "title": "Artist: Takura Osaka"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Trevor Paglen", "label": "Trevor Paglen", "shape": "dot", "title": "Artist: Trevor Paglen"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "GEO", "label": "GEO", "shape": "dot", "title": "Orbit/Location: GEO"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Tama Art University \u0026 University of Tokyo", "label": "Tama Art University \u0026 University of Tokyo", "shape": "dot", "title": "Artist: Tama Art University \u0026 University of Tokyo"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Transdisciplinary Team", "label": "Transdisciplinary Team", "shape": "dot", "title": "Artist: Transdisciplinary Team"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Eyal Gever", "label": "Eyal Gever", "shape": "dot", "title": "Artist: Eyal Gever"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Israel", "label": "Israel", "shape": "dot", "title": "Country: Israel"}, {"font": {"color": "#000000"}, "group": "Country", "id": "France", "label": "France", "shape": "dot", "title": "Country: France"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Peter Beck", "label": "Peter Beck", "shape": "dot", "title": "Artist: Peter Beck"}, {"font": {"color": "#000000"}, "group": "Country", "id": "New Zealand", "label": "New Zealand", "shape": "dot", "title": "Country: New Zealand"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Tavares Strachan", "label": "Tavares Strachan", "shape": "dot", "title": "Artist: Tavares Strachan"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Moon Gallery Foundation Team and global artists", "label": "Moon Gallery Foundation Team and global artists", "shape": "dot", "title": "Artist: Moon Gallery Foundation Team and global artists"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Netherlands", "label": "Netherlands", "shape": "dot", "title": "Country: Netherlands"}, {"font": {"color": "#000000"}, "group": "Country", "id": "International", "label": "International", "shape": "dot", "title": "Country: International"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Kat Kohl", "label": "Kat Kohl", "shape": "dot", "title": "Artist: Kat Kohl"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Masahito Ono", "label": "Masahito Ono", "shape": "dot", "title": "Artist: Masahito Ono"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Xu Bing", "label": "Xu Bing", "shape": "dot", "title": "Artist: Xu Bing"}, {"font": {"color": "#000000"}, "group": "Country", "id": "China", "label": "China", "shape": "dot", "title": "Country: China"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "11artworks", "label": "11artworks", "shape": "dot", "title": "Artist: 11artworks"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Klim Shipenko, Yulia Peresild", "label": "Klim Shipenko, Yulia Peresild", "shape": "dot", "title": "Artist: Klim Shipenko, Yulia Peresild"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "10 Africa young participants", "label": "10 Africa young participants", "shape": "dot", "title": "Artist: 10 Africa young participants"}, {"font": {"color": "#000000"}, "group": "Orbit", "id": "Tss", "label": "Tss", "shape": "dot", "title": "Orbit/Location: Tss"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Africa", "label": "Africa", "shape": "dot", "title": "Country: Africa"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Jeff Koons", "label": "Jeff Koons", "shape": "dot", "title": "Artist: Jeff Koons"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Carnegie Mellon University Moon Arts Group", "label": "Carnegie Mellon University Moon Arts Group", "shape": "dot", "title": "Artist: Carnegie Mellon University Moon Arts Group"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Curated by Samuel Peralta and 50,000+global artists", "label": "Curated by Samuel Peralta and 50,000+global artists", "shape": "dot", "title": "Artist: Curated by Samuel Peralta and 50,000+global artists"}, {"font": {"color": "#000000"}, "group": "Country", "id": "Canada", "label": "Canada", "shape": "dot", "title": "Country: Canada"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "53young participants from China", "label": "53young participants from China", "shape": "dot", "title": "Artist: 53young participants from China"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "75 young participants from China", "label": "75 young participants from China", "shape": "dot", "title": "Artist: 75 young participants from China"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Xu Bing Studio and  38 Artists", "label": "Xu Bing Studio and  38 Artists", "shape": "dot", "title": "Artist: Xu Bing Studio and  38 Artists"}, {"font": {"color": "#000000"}, "group": "Artist", "id": "Xu Bing Studio and other Artists", "label": "Xu Bing Studio and other Artists", "shape": "dot", "title": "Artist: Xu Bing Studio and other Artists"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Alexei Arkhipovich Leonov", "to": "Soviet"}, {"arrows": "to", "from": "Soviet", "to": "LEO"}, {"arrows": "to", "from": "Forrest Myers, Andy Warhol, Robert Rauschenberg, David Novros, Claes Oldenburg,  John Chamberlain", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Moon"}, {"arrows": "to", "from": "Paul Van Hoeydonck", "to": "Belgium"}, {"arrows": "to", "from": "Belgium", "to": "Moon"}, {"arrows": "to", "from": "Paul Van Hoeydonck", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Moon"}, {"arrows": "to", "from": "Carl Sagan ,  Frank Drake, Linda Salzman Sagan, Jon Lomberg", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Deep Space"}, {"arrows": "to", "from": "Carl Sagan ,  Frank Drake, Linda Salzman Sagan, Jon Lomberg", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Deep Space"}, {"arrows": "to", "from": "Carl Sagan\u3001Linda Salzman Sagan\u3001Frank Drake\u3001Ann Druyan\u3001Jon Lomberg et al.", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Deep Space"}, {"arrows": "to", "from": "Eduardo Kac", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Deep Space"}, {"arrows": "to", "from": "Arthur Woods", "to": "Switzerland"}, {"arrows": "to", "from": "Switzerland", "to": "Mir"}, {"arrows": "to", "from": "Arthur Woods", "to": "Russia"}, {"arrows": "to", "from": "Russia", "to": "Mir"}, {"arrows": "to", "from": "Twenty international artists", "to": "Switzerland"}, {"arrows": "to", "from": "Switzerland", "to": "Mir"}, {"arrows": "to", "from": "Twenty international artists", "to": "Russia"}, {"arrows": "to", "from": "Russia", "to": "Mir"}, {"arrows": "to", "from": "Ragnhild Becker \u0026 Gunar Seitz", "to": "Germany"}, {"arrows": "to", "from": "Germany", "to": "LEO"}, {"arrows": "to", "from": "Takao Fujiwara", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "ISS"}, {"arrows": "to", "from": "Takao Fujiwara", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "ISS"}, {"arrows": "to", "from": "Takuro Osaka", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "ISS"}, {"arrows": "to", "from": "Eduardo Kac", "to": "Brazil"}, {"arrows": "to", "from": "Brazil", "to": "LEO"}, {"arrows": "to", "from": "Ragnhild Becker \u0026 Gunar Seitz", "to": "Germany"}, {"arrows": "to", "from": "Germany", "to": "LEO"}, {"arrows": "to", "from": "Takuro Osaka", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "ISS"}, {"arrows": "to", "from": "Takura Osaka", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "ISS"}, {"arrows": "to", "from": "Trevor Paglen", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "GEO"}, {"arrows": "to", "from": "Tama Art University \u0026 University of Tokyo", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "LEO"}, {"arrows": "to", "from": "Transdisciplinary Team", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "Deep Space"}, {"arrows": "to", "from": "Eyal Gever", "to": "Israel"}, {"arrows": "to", "from": "Israel", "to": "ISS"}, {"arrows": "to", "from": "Eyal Gever", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "ISS"}, {"arrows": "to", "from": "Eduardo Kac", "to": "Brazil"}, {"arrows": "to", "from": "Brazil", "to": "ISS"}, {"arrows": "to", "from": "Eduardo Kac", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "ISS"}, {"arrows": "to", "from": "Eduardo Kac", "to": "France"}, {"arrows": "to", "from": "France", "to": "ISS"}, {"arrows": "to", "from": "Peter Beck", "to": "New Zealand"}, {"arrows": "to", "from": "New Zealand", "to": "LEO"}, {"arrows": "to", "from": "Trevor Paglen", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "LEO"}, {"arrows": "to", "from": "Tavares Strachan", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "LEO"}, {"arrows": "to", "from": "Moon Gallery Foundation Team and global artists", "to": "Netherlands"}, {"arrows": "to", "from": "Netherlands", "to": "ISS"}, {"arrows": "to", "from": "Moon Gallery Foundation Team and global artists", "to": "International"}, {"arrows": "to", "from": "International", "to": "ISS"}, {"arrows": "to", "from": "Kat Kohl", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "ISS"}, {"arrows": "to", "from": "Masahito Ono", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "ISS"}, {"arrows": "to", "from": "Masahito Ono", "to": "Japan"}, {"arrows": "to", "from": "Japan", "to": "ISS"}, {"arrows": "to", "from": "Xu Bing", "to": "China"}, {"arrows": "to", "from": "China", "to": "LEO"}, {"arrows": "to", "from": "Xu Bing", "to": "China"}, {"arrows": "to", "from": "China", "to": "LEO"}, {"arrows": "to", "from": "11artworks", "to": "Israel"}, {"arrows": "to", "from": "Israel", "to": "ISS"}, {"arrows": "to", "from": "Klim Shipenko, Yulia Peresild", "to": "Russia"}, {"arrows": "to", "from": "Russia", "to": "ISS"}, {"arrows": "to", "from": "10 Africa young participants", "to": "China"}, {"arrows": "to", "from": "China", "to": "Tss"}, {"arrows": "to", "from": "10 Africa young participants", "to": "Africa"}, {"arrows": "to", "from": "Africa", "to": "Tss"}, {"arrows": "to", "from": "Jeff Koons", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Moon"}, {"arrows": "to", "from": "Carnegie Mellon University Moon Arts Group", "to": "USA"}, {"arrows": "to", "from": "USA", "to": "Moon"}, {"arrows": "to", "from": "Curated by Samuel Peralta and 50,000+global artists", "to": "Canada"}, {"arrows": "to", "from": "Canada", "to": "Moon"}, {"arrows": "to", "from": "Curated by Samuel Peralta and 50,000+global artists", "to": "International"}, {"arrows": "to", "from": "International", "to": "Moon"}, {"arrows": "to", "from": "53young participants from China", "to": "China"}, {"arrows": "to", "from": "China", "to": "Tss"}, {"arrows": "to", "from": "75 young participants from China", "to": "China"}, {"arrows": "to", "from": "China", "to": "Tss"}, {"arrows": "to", "from": "Xu Bing Studio and  38 Artists", "to": "China"}, {"arrows": "to", "from": "China", "to": "LEO"}, {"arrows": "to", "from": "Xu Bing Studio and other Artists", "to": "China"}, {"arrows": "to", "from": "China", "to": "LEO"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"shape": "box", "margin": 8, "borderWidth": 1, "shadow": {"enabled": true, "color": "rgba(0,0,0,0.25)", "size": 8, "x": 2, "y": 2}, "font": {"face": "Helvetica", "size": 16}}, "edges": {"color": {"color": "#cccccc"}, "smooth": {"enabled": true, "type": "continuous"}, "arrows": {"to": {"enabled": true, "scaleFactor": 0.5}}}, "interaction": {"dragNodes": true, "dragView": true, "zoomView": true, "hover": true, "tooltipDelay": 150}, "physics": {"enabled": true, "barnesHut": {"gravitationalConstant": -3000, "centralGravity": 0.1, "springLength": 160, "springConstant": 0.02, "avoidOverlap": 0.2}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

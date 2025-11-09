@@ -22,7 +22,7 @@
     async function generate() {
       const prompt = document.getElementById("prompt").value;
       document.getElementById("status").textContent = "Loading...";
-      const res = await fetch("/api/graph", {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt })

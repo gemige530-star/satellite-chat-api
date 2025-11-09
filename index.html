@@ -311,11 +311,10 @@ section a {
      if (data.type === "graph" && data.data) {
   toggleGraph(data.data);
   return;
-} else if (data.type === "graph" && data.graph_spec) {
-  toggleGraph(data.graph_spec);
-  return;
-} else if (data.graph_spec) {
-  toggleGraph(data.graph_spec);
+} else if (data.graph || data.graph_spec || data.data?.graph) {
+  // 兼容后端返回 graph / graph_spec / data.graph 等结构
+  const g = data.graph || data.graph_spec || data.data?.graph;
+  toggleGraph(g);
   return;
 }
 

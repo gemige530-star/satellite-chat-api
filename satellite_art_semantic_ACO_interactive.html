@@ -54,6 +54,7 @@
             
             
             <div id="mynetwork" class="card-body"></div>
+            <button id="saveBtn" style="margin:10px;">💾 保存图像 / Save Image</button>
         </div>
 
         
@@ -123,5 +124,17 @@
               }
               drawGraph();
         </script>
+        // 保存图像为 PNG 文件
+document.getElementById("saveBtn").onclick = function () {
+  var canvas = document.getElementsByTagName("canvas")[0];
+  if (!canvas) {
+    alert("未找到图像区域，请稍后再试。");
+    return;
+  }
+  var link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "country_orbit_artist_network.png";
+  link.click();
+};
     </body>
 </html>

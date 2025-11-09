@@ -398,21 +398,3 @@ section a {
     };
   }
 </script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const input = document.getElementById("userInput"); // 聊天输入框
-  const sendButton = document.getElementById("sendBtn"); // 发送按钮
-
-  function checkCommand() {
-    const userText = input.value.trim();
-    if (userText.includes("生成动态语义图")) {
-      window.open("https://satellite-chat-api.vercel.app/satellite_art_semantic_ACO_interactive.html", "_blank");
-    }
-  }
-
-  sendButton.addEventListener("click", checkCommand);
-  input.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") checkCommand();
-  });
-});
-</script>

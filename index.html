@@ -308,10 +308,16 @@ section a {
       loading.remove();
 
       // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
-      if (data.type === "graph" && data.data) {
-        toggleGraph(data.data);
-        return; // 不再额外显示文本气泡
-      }
+     if (data.type === "graph" && data.data) {
+  toggleGraph(data.data);
+  return;
+} else if (data.type === "graph" && data.graph_spec) {
+  toggleGraph(data.graph_spec);
+  return;
+} else if (data.graph_spec) {
+  toggleGraph(data.graph_spec);
+  return;
+}
 
       // ② 普通文本响应：{ reply: "..." }
       if (data.reply) {

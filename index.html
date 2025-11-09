@@ -279,6 +279,19 @@ section a {
     const history = document.getElementById("chat-history");
     const userMsg = input.value.trim();
     if (!userMsg) return;
+    // ✅ 国家—轨道—艺术家关系图指令（中英文）
+if (
+  userMsg.includes("国家轨道艺术家关系图") ||
+  userMsg.includes("国家、轨道、艺术家关系图") ||
+  userMsg.toLowerCase().includes("country orbit artist relation")
+) {
+  window.open(
+    "https://satellite-chat-api.vercel.app/satellite_art_semantic_ACO_interactive.html",
+    "_blank"
+  );
+  input.value = "";
+  return;
+}
 
     // 显示用户消息
     const userBubble = document.createElement("div");

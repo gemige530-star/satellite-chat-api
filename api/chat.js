@@ -18,10 +18,9 @@ export default async function handler(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
 
-   // ✅ 改进检测语句（支持更多触发词）
-if (
+  if (
   /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(
-    message.trim()
+    prompt.trim()
   )
 ) {
 

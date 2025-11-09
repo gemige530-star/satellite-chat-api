@@ -307,8 +307,8 @@ section a {
       const data = await res.json();
       loading.remove();
 
-      // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
-      if (data.type === "graph" && data.data) {
+      // ① 语义图响应：后端返回 { type: "country_orbit", data: { nodes, links } }
+      if (data.type === "country_orbit" && data.data) {
         toggleGraph(data.data);
         return; // 不再额外显示文本气泡
       }

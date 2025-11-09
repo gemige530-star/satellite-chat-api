@@ -18,9 +18,12 @@ export default async function handler(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
 
-    // ✅ 逻辑1：检测语义图命令
-    if (/\b(生成)?(语义图|semantic\s*graph|orbit|country)\b/i.test(prompt.trim())) {
-      console.log(">>> ✅ 图表逻辑触发");
+   // ✅ 改进检测语句（支持更多触发词）
+if (
+  /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(
+    message.trim()
+  )
+) {
 
       let graph_type = "orbit_total";
       let nodes = [];

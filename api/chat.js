@@ -1,6 +1,7 @@
 import fs from "fs/promises";
 
 export default async function handler(req, res) {
+  // ===== 通用设置 =====
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -9,6 +10,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
 
   try {
+    // ===== 获取请求体 =====
     const body = req.body ?? (await req.json?.());
     const prompt = body?.prompt || body?.message;
     if (!prompt)
@@ -17,72 +19,62 @@ export default async function handler(req, res) {
     const isChinese = /[\u4e00-\u9fa5]/.test(prompt);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
- if (
-  /\bwhat\s+is\s+satellite\s*art\b/i.test(prompt) ||
-  /\bdefine\s+satellite\s*art\b/i.test(prompt) ||
-  /\bdefinition\s+of\s+satellite\s*art\b/i.test(prompt) ||
-  /\bsatellite\s*art\b/i.test(prompt) ||
-  /卫星艺术/.test(prompt)
-)
 
- {
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: "gpt-4o",
-      temperature: 0.2,
-      prompt: {
-        id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
-        version: "7", // ✅ 最新版
-      },
-      input: [
-        {
-          role: "user",
-          content: [
-            { type: "input_text", text: prompt },
-          ],
+    // ===== 特殊逻辑：卫星艺术 =====
+    if (
+      /\bwhat\s+is\s+satellite\s*art\b/i.test(prompt) ||
+      /\bdefine\s+satellite\s*art\b/i.test(prompt) ||
+      /\bdefinition\s+of\s+satellite\s*art\b/i.test(prompt) ||
+      /\bsatellite\s*art\b/i.test(prompt) ||
+      /卫星艺术/.test(prompt)
+    ) {
+      const response = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
         },
-      ],
-    }),
-  });
+        body: JSON.stringify({
+          model: "gpt-4o",
+          temperature: 0.2,
+          prompt: {
+            id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
+            version: "7",
+          },
+          input: [
+            {
+              role: "user",
+              content: [{ type: "input_text", text: prompt }],
+            },
+          ],
+        }),
+      });
 
-  const data = await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Prompt API Error:", data);
+        return res.status(500).json({ error: "Failed to fetch definition" });
+      }
 
-  if (!response.ok) {
-    console.error("Prompt API Error:", data);
-    return res.status(500).json({ error: "Failed to fetch definition" });
-  }
+      const reply =
+        data?.output?.[0]?.content?.[0]?.text?.trim() ||
+        data?.output_text?.trim() ||
+        "Satellite art generally refers to artistic practices associated with outer space orbits, space stations, and artistic activities conducted on the Moon.";
 
-  let reply = "";
-  if (data.output?.[0]?.content?.[0]?.text) {
-    reply = data.output[0].content[0].text.trim();
-  } else if (data.output_text) {
-    reply = data.output_text.trim();
-  } else {
-    console.error("Unexpected responses format:", JSON.stringify(data, null, 2));
-    reply =
-      "Satellite art generally refers to artistic practices associated with outer space orbits, space stations, and artistic activities conducted on the Moon.";
-  }
+      return res.status(200).json({ type: "text", reply });
+    }
 
-  return res.status(200).json({ type: "text", reply });
-}
-
-  if (
-  /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(
-    prompt.trim()
-  )
-) {
-
+    // ===== 特殊逻辑：语义图 / 关系图 =====
+    if (
+      /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(
+        prompt.trim()
+      )
+    ) {
       let graph_type = "orbit_total";
       let nodes = [];
       let edges = [];
 
       if (/country/i.test(prompt)) {
-        // 国家与轨道关系图
         graph_type = "country_orbit";
         nodes = [
           { id: "usa", label: "USA", category: "country", count: 2400 },
@@ -97,7 +89,6 @@ export default async function handler(req, res) {
           { source: "russia", target: "geo", weight: 1 },
         ];
       } else {
-        // 轨道分布图
         graph_type = "orbit_total";
         nodes = [
           { id: "leo", label: "LEO", category: "orbit", count: 5200 },
@@ -114,12 +105,8 @@ export default async function handler(req, res) {
       });
     }
 
-    // ✅ 逻辑2：普通文字回复
-    const systemPrompt = isChinese
-      ? "你是一位理性、简洁、自然流畅又富于生气的中文学者，用平实但有思想的语言表达，不要使用模板化或客套语气。"
-      : "You are a rational, concise, and eloquent scholar. Write in natural, vivid English that is thoughtful yet unpretentious.";
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    // ===== 普通文字回复（改为使用最新 Prompt，稳定可用）=====
+    const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -129,28 +116,36 @@ export default async function handler(req, res) {
         model: "gpt-4o",
         temperature: 0.8,
         top_p: 0.95,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: prompt },
+        prompt: {
+          id: "pmpt_69123efac68481979eef9ff79ac36fe90c97666440d936cb",
+          version: "1",
+        },
+        input: [
+          {
+            role: "user",
+            content: [{ type: "input_text", text: prompt }],
+          },
         ],
       }),
     });
 
     const data = await response.json();
+
     if (!response.ok) {
-      console.error("OpenAI API Error:", data);
-      return res.status(response.status).json({
-        error: data.error?.message || "OpenAI request failed",
-      });
+      console.error("Prompt API Error:", data);
+      return res
+        .status(response.status)
+        .json({ error: data?.error?.message || "Request to OpenAI failed" });
     }
 
-    const reply = data?.choices?.[0]?.message?.content;
-    if (!reply)
-      return res.status(500).json({ error: "Malformed OpenAI response" });
+    const reply =
+      data?.output?.[0]?.content?.[0]?.text?.trim() ||
+      data?.output_text?.trim() ||
+      "No valid output received from API.";
 
     return res.status(200).json({ type: "text", reply });
   } catch (err) {
     console.error("Handler Error:", err);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message || "Unknown error" });
   }
 }

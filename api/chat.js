@@ -17,16 +17,34 @@ export default async function handler(req, res) {
     const isChinese = /[\u4e00-\u9fa5]/.test(prompt);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
-    // ✅ 固定回答：卫星艺术定义
+   // ✅ 动态定义回答：调用 Prompt Builder
 if (
   /what\s+is\s+satellite\s+art/i.test(prompt) ||
   /satellite\s+art\s+definition/i.test(prompt) ||
   /卫星艺术/.test(prompt)
 ) {
-  return res.status(200).json({
-    reply:
-      "Here, satellite art refers to artistic practices related to outer space orbital zones, the International Space Station (ISS), as well as artistic activities carried out on the Moon."
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    },
+    body: JSON.stringify({
+      prompt: {
+        id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
+        version: "6"
+      }
+    }),
   });
+
+  const data = await response.json();
+  if (!response.ok) {
+    console.error("Prompt API Error:", data);
+    return res.status(500).json({ error: "Failed to fetch definition" });
+  }
+
+  const reply = data.output_text || data.output?.[0]?.content?.[0]?.text;
+  return res.status(200).json({ type: "text", reply });
 }
 
   if (

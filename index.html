@@ -238,14 +238,15 @@ section a {
 
   <!-- 输入框和发送按钮整个模块 -->
   <div id="chat-input-area" style="margin-top: 10px; display: flex; gap: 6px;">
-    <input id="userInput" type="text" placeholder="Ask AI..." style="
-      flex: 1;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      background: #222;
-      color: #fff;
-    ">
+    #userInput {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: transparent; /* 去掉灰色背景 */
+  color: #fff;
+}
     <button id="sendBtn" style="
       background:#0af;
       color:white;

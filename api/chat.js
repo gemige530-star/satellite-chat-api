@@ -128,7 +128,6 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: "gpt-4o",
         temperature: 0.8,
-        max_output_tokens: 200,
         top_p: 0.95,
         messages: [
           { role: "system", content: systemPrompt },

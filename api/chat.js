@@ -17,8 +17,7 @@ export default async function handler(req, res) {
     const isChinese = /[\u4e00-\u9fa5]/.test(prompt);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
-  // ✅ 动态定义回答：调用 Prompt Builder（v6）
-if (
+ if (
   /what\s+is\s+satellite\s*art\??/i.test(prompt) ||
   /satellite\s*art\s*definition/i.test(prompt) ||
   /define\s+satellite\s*art/i.test(prompt) ||
@@ -31,19 +30,17 @@ if (
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
     },
     body: JSON.stringify({
+      model: "gpt-4o",
+      temperature: 0.2,
       prompt: {
         id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
-        version: "6",
+        version: "7", // ✅ 最新版
       },
-      // 👇 把前端传来的具体提问作为 input，让 Prompt 生效
       input: [
         {
           role: "user",
           content: [
-            {
-              type: "input_text",
-              text: prompt,
-            },
+            { type: "input_text", text: prompt },
           ],
         },
       ],
@@ -57,20 +54,15 @@ if (
     return res.status(500).json({ error: "Failed to fetch definition" });
   }
 
-  // ✅ 严格按 Responses API 结构取文本
   let reply = "";
-
-  if (Array.isArray(data.output)) {
-    const first = data.output[0];
-    if (first && Array.isArray(first.content) && first.content[0]?.text) {
-      reply = first.content[0].text;
-    }
-  }
-
-  // 如果上面解析失败，就直接把整个 data 打出来方便你 debug
-  if (!reply) {
+  if (data.output?.[0]?.content?.[0]?.text) {
+    reply = data.output[0].content[0].text.trim();
+  } else if (data.output_text) {
+    reply = data.output_text.trim();
+  } else {
     console.error("Unexpected responses format:", JSON.stringify(data, null, 2));
-    reply = "Satellite art generally refers to artistic practices associated with outer space orbits, space stations, and artistic activities conducted on the Moon.";
+    reply =
+      "Satellite art generally refers to artistic practices associated with outer space orbits, space stations, and artistic activities conducted on the Moon.";
   }
 
   return res.status(200).json({ type: "text", reply });

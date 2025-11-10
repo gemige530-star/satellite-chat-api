@@ -72,16 +72,16 @@
       z-index: 1000;
     }
     #chat-window {
-      background: #111;
-      border-radius: 10px;
-      padding: 10px;
-      max-height: 400px;
-      overflow-y: auto;
-      color: #fff;
-      font-family: sans-serif;
-      font-size: 14px;
-      box-shadow: 0 0 12px rgba(77,166,255,0.3);
-    }
+  background: transparent;   /* 去掉黑色底 */
+  box-shadow: none;          /* 去掉阴影条的感觉 */
+  padding: 0;                /* 去掉撑开的空白 */
+  max-height: 400px;
+  overflow-y: auto;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 14px;
+  border-radius: 0;
+}
     #chat-input-area {
       margin-top: 10px;
       display: flex;

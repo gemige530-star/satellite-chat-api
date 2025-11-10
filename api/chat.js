@@ -25,8 +25,11 @@ if (
 ) {
   return res.status(200).json({
     reply:
-      "Here, satellite art refers to artistic practices related to outer space orbital zones, the International Space Station (ISS), as well as artistic activities carried out on the Moon."
-  });
+     {
+  "prompt": {
+    "id": "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
+    "version": "4"
+  }
 }
 
   if (

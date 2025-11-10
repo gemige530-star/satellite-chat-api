@@ -18,11 +18,14 @@ export default async function handler(req, res) {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
  if (
-  /what\s+is\s+satellite\s*art\??/i.test(prompt) ||
-  /satellite\s*art\s*definition/i.test(prompt) ||
-  /define\s+satellite\s*art/i.test(prompt) ||
+  /\bwhat\s+is\s+satellite\s*art\b/i.test(prompt) ||
+  /\bdefine\s+satellite\s*art\b/i.test(prompt) ||
+  /\bdefinition\s+of\s+satellite\s*art\b/i.test(prompt) ||
+  /\bsatellite\s*art\b/i.test(prompt) ||
   /卫星艺术/.test(prompt)
-) {
+)
+
+ {
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {

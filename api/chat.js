@@ -24,14 +24,14 @@ if (
   /卫星艺术/.test(prompt)
 ) {
   return res.status(200).json({
-  reply: {
-    prompt: {
-      id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
-      version: "4"
+    reply: {
+      prompt: {
+        id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
+        version: "4"
+      }
     }
-  }
-});
-
+  });
+} // ← 必须加上这一个
 
   if (
   /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(

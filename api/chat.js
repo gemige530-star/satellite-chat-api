@@ -17,10 +17,11 @@ export default async function handler(req, res) {
     const isChinese = /[\u4e00-\u9fa5]/.test(prompt);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
-   // ✅ 动态定义回答：调用 Prompt Builder
+  // ✅ 动态定义回答：调用 Prompt Builder（v6）
 if (
-  /what\s+is\s+satellite\s+art/i.test(prompt) ||
-  /satellite\s+art\s+definition/i.test(prompt) ||
+  /what\s+is\s+satellite\s*art\??/i.test(prompt) ||
+  /satellite\s*art\s*definition/i.test(prompt) ||
+  /define\s+satellite\s*art/i.test(prompt) ||
   /卫星艺术/.test(prompt)
 ) {
   const response = await fetch("https://api.openai.com/v1/responses", {
@@ -32,18 +33,46 @@ if (
     body: JSON.stringify({
       prompt: {
         id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
-        version: "6"
-      }
+        version: "6",
+      },
+      // 👇 把前端传来的具体提问作为 input，让 Prompt 生效
+      input: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_text",
+              text: prompt,
+            },
+          ],
+        },
+      ],
     }),
   });
 
   const data = await response.json();
+
   if (!response.ok) {
     console.error("Prompt API Error:", data);
     return res.status(500).json({ error: "Failed to fetch definition" });
   }
 
-  const reply = data.output_text || data.output?.[0]?.content?.[0]?.text;
+  // ✅ 严格按 Responses API 结构取文本
+  let reply = "";
+
+  if (Array.isArray(data.output)) {
+    const first = data.output[0];
+    if (first && Array.isArray(first.content) && first.content[0]?.text) {
+      reply = first.content[0].text;
+    }
+  }
+
+  // 如果上面解析失败，就直接把整个 data 打出来方便你 debug
+  if (!reply) {
+    console.error("Unexpected responses format:", JSON.stringify(data, null, 2));
+    reply = "Satellite art generally refers to artistic practices associated with outer space orbits, space stations, and artistic activities conducted on the Moon.";
+  }
+
   return res.status(200).json({ type: "text", reply });
 }
 

@@ -17,6 +17,17 @@ export default async function handler(req, res) {
     const isChinese = /[\u4e00-\u9fa5]/.test(prompt);
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) throw new Error("Missing OPENAI_API_KEY");
+    // ✅ 固定回答：卫星艺术定义
+if (
+  /what\s+is\s+satellite\s+art/i.test(prompt) ||
+  /satellite\s+art\s+definition/i.test(prompt) ||
+  /卫星艺术/.test(prompt)
+) {
+  return res.status(200).json({
+    reply:
+      "Here, satellite art refers to artistic practices related to outer space orbital zones, the International Space Station (ISS), as well as artistic activities carried out on the Moon."
+  });
+}
 
   if (
   /(语义图|semantic\s*(graph|network)|orbit\s*distribution|关系图|relation\s*graph|知识图谱)/i.test(

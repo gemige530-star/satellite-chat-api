@@ -114,43 +114,45 @@ export default async function handler(req, res) {
       });
     }
 
-    // ✅ 逻辑2：普通文字回复
-    const systemPrompt = isChinese
-      ? "你是一位理性、简洁、自然流畅又富于生气的中文学者，用平实但有思想的语言表达，不要使用模板化或客套语气。"
-      : "You are a rational, concise, and eloquent scholar. Write in natural, vivid English that is thoughtful yet unpretentious.";
-
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+    // ✅ 逻辑2：普通文字回复（改为使用 Responses + Prompt ID）
+const response = await fetch("https://api.openai.com/v1/responses", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+  },
+  body: JSON.stringify({
+    model: "gpt-4o",
+    temperature: 0.8,
+    top_p: 0.9,
+    prompt: {
+      id: "pmpt_69123efac68481979eef9ff79ac36fe90c97666440d936cb",
+      version: "1", // ✅ 使用你自己的 prompt 版本
+    },
+    input: [
+      {
+        role: "user",
+        content: [{ type: "input_text", text: prompt }],
       },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        temperature: 0.8,
-        top_p: 0.95,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: prompt },
-        ],
-      }),
-    });
+    ],
+  }),
+});
 
-    const data = await response.json();
-    if (!response.ok) {
-      console.error("OpenAI API Error:", data);
-      return res.status(response.status).json({
-        error: data.error?.message || "OpenAI request failed",
-      });
-    }
+const data = await response.json();
 
-    const reply = data?.choices?.[0]?.message?.content;
-    if (!reply)
-      return res.status(500).json({ error: "Malformed OpenAI response" });
-
-    return res.status(200).json({ type: "text", reply });
-  } catch (err) {
-    console.error("Handler Error:", err);
-    return res.status(500).json({ error: err.message });
-  }
+if (!response.ok) {
+  console.error("Prompt API Error:", data);
+  return res.status(500).json({ error: "Failed to fetch prompt response" });
 }
+
+let reply = "";
+if (data.output?.[0]?.content?.[0]?.text) {
+  reply = data.output[0].content[0].text.trim();
+} else if (data.output_text) {
+  reply = data.output_text.trim();
+} else {
+  console.error("Unexpected response format:", JSON.stringify(data, null, 2));
+  reply = "Sorry, I couldn’t generate a response.";
+}
+
+return res.status(200).json({ type: "text", reply });

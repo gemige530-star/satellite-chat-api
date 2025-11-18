@@ -37,10 +37,10 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           model: "gpt-4o",
           temperature: 0.2,
-          prompt: {
-            id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
-            version: "7",
-          },
+         prompt: {
+  id: "pmpt_6911cbdb43b0819090d2abc414797f100eefc3899a868814",
+  version: "10",
+},
           input: [
             {
               role: "user",

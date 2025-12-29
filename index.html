@@ -1,138 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta charset="UTF-8">
-<title>Satellite Art Archive</title>
-<link
-rel="stylesheet"
-href="https://unpkg.com/vis-network/styles/vis-network.min.css"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Satellite Art Archive</title>
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/vis-network/styles/vis-network.min.css"
 />
-<style>
-
-```
-body {
-  margin: 0;
-  background: black;
-  color: white;
+  <style>
+    
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+    }
+    nav {
+      background-color: #0a0a0a;
+      padding: 1em 0;
+      box-shadow: 0 0 10px rgba(77,166,255,0.3);
+    }
+    nav a {
+      color: #4da6ff;
+      text-decoration: none;
+      margin: 0 1.2em;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+    nav a:hover {
+      color: #9cd6ff;
+      text-shadow: 0 0 8px #4da6ff;
+    }
+    h1 {
+      margin-top: 0.8em;
+      font-size: 2.6em;
+      letter-spacing: 0.1em;
+    }
+    p {
+  font-size: 1.2em;
+  opacity: 0.8;
+  margin-top: 0.4em;
+  text-align: justify;      /* 两端对齐 */
+  text-justify: inter-word; /* 按词间距调整 */
+  line-height: 1.8;         /* 行距更自然 */
+  letter-spacing: 0.05em;   /* 字距微调 */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px;         /* 控制正文宽度，提升阅读体验 */
+}
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #0a0a0a;
+      opacity: 0.6;
+      font-size: 0.9em;
+      text-align: center;
+      padding: 0.8em 0;
+      box-shadow: 0 -2px 8px rgba(77,166,255,0.2);
+    }
+    /* Chatbox */
+    #chat-section {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 320px;
+      z-index: 1000;
+    }
+    #chat-window {
+  background: transparent;   /* 去掉黑色底 */
+  box-shadow: none;          /* 去掉阴影条的感觉 */
+  padding: 0;                /* 去掉撑开的空白 */
+  max-height: 400px;
+  overflow-y: auto;
+  color: #fff;
   font-family: sans-serif;
-  text-align: center;
+  font-size: 14px;
+  border-radius: 0;
 }
-nav {
-  background-color: #0a0a0a;
-  padding: 1em 0;
-  box-shadow: 0 0 10px rgba(77,166,255,0.3);
-}
-nav a {
-  color: #4da6ff;
-  text-decoration: none;
-  margin: 0 1.2em;
-  font-weight: bold;
-  letter-spacing: 0.05em;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-nav a:hover {
-  color: #9cd6ff;
-  text-shadow: 0 0 8px #4da6ff;
-}
-h1 {
-  margin-top: 0.8em;
-  font-size: 2.6em;
-  letter-spacing: 0.1em;
-}
-p {
-
-```
-
-font-size: 1.2em;
-opacity: 0.8;
-margin-top: 0.4em;
-text-align: justify;      /* 两端对齐 */
-text-justify: inter-word; /* 按词间距调整 */
-line-height: 1.8;         /* 行距更自然 */
-letter-spacing: 0.05em;   /* 字距微调 */
-margin-left: auto;
-margin-right: auto;
-max-width: 800px;         /* 控制正文宽度，提升阅读体验 */
-}
-footer {
-position: fixed;
-bottom: 0;
-left: 0;
-width: 100%;
-background-color: #0a0a0a;
-opacity: 0.6;
-font-size: 0.9em;
-text-align: center;
-padding: 0.8em 0;
-box-shadow: 0 -2px 8px rgba(77,166,255,0.2);
-}
-/* Chatbox */
-#chat-section {
-position: fixed;
-bottom: 20px;
-right: 20px;
-width: 320px;
-z-index: 1000;
-}
-#chat-window {
-background: transparent;   /* 去掉黑色底 */
-box-shadow: none;          /* 去掉阴影条的感觉 */
-padding: 0;                /* 去掉撑开的空白 */
-max-height: 400px;
-overflow-y: auto;
-color: #fff;
-font-family: sans-serif;
-font-size: 14px;
-border-radius: 0;
-}
-#chat-input-area {
-margin-top: 10px;
-display: flex;
-gap: 6px;
-}
-#userInput {
-flex: 1;
-padding: 8px;
-border-radius: 8px;
-border: none;
-background: #222;
-color: #fff;
-}
-#sendBtn {
-background: #0af;
-color: #fff;
-border: none;
-border-radius: 8px;
-padding: 8px 12px;
-cursor: pointer;
-}
-#sendBtn:hover {
-background: #09f;
-}
-/* —— 基础弹性与图片自适应 —— */
+    #chat-input-area {
+      margin-top: 10px;
+      display: flex;
+      gap: 6px;
+    }
+    #userInput {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    }
+    #sendBtn {
+      background: #0af;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+    #sendBtn:hover {
+      background: #09f;
+    }
+  /* —— 基础弹性与图片自适应 —— */
 img { max-width: 100%; height: auto; }
 
 /* 作品卡片容器改成弹性、可换行 */
 section[style*="display: flex"] {
-flex-wrap: wrap;
-gap: 1.5em;
-margin: 2em auto;
-width: 90%;
-max-width: 1200px;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  margin: 2em auto;
+  width: 90%;
+  max-width: 1200px;
 }
 
 /* 单卡片最小宽度，自动挤压换行 */
 section a {
-flex: 1 1 280px;
-max-width: 360px;
+  flex: 1 1 280px;
+  max-width: 360px;
 }
 
 /* 聊天框：宽度随视口缩放，避免溢出 */
 #chat-section {
-width: min(320px, 92vw);
-right: 2vw;
-bottom: 2vh;
+  width: min(320px, 92vw);
+  right: 2vw;
+  bottom: 2vh;
 }
 
 /* 输入区：保证按钮不挤压输入框 */
@@ -141,259 +137,248 @@ bottom: 2vh;
 
 /* —— 断点：平板及以下 —— */
 @media (max-width: 1024px) {
-nav { display: flex; flex-wrap: wrap; gap: .5em; justify-content: center; }
+  nav { display: flex; flex-wrap: wrap; gap: .5em; justify-content: center; }
 }
 
 /* —— 断点：手机竖屏 —— */
 @media (max-width: 768px) {
-h1 { font-size: 2rem; }
-p  { font-size: 1rem; }
-#chat-section { width: 95vw; right: 2.5vw; bottom: 10px; }
-#chat-window { max-height: 50vh; }
-footer { font-size: .85em; padding: .6em 0; }
+  h1 { font-size: 2rem; }
+  p  { font-size: 1rem; }
+  #chat-section { width: 95vw; right: 2.5vw; bottom: 10px; }
+  #chat-window { max-height: 50vh; }
+  footer { font-size: .85em; padding: .6em 0; }
 }
 
 /* —— 断点：小手机 —— */
 @media (max-width: 480px) {
-nav a { display: inline-block; margin: .2em .4em; }
-section a { flex-basis: 100%; max-width: 100%; }
+  nav a { display: inline-block; margin: .2em .4em; }
+  section a { flex-basis: 100%; max-width: 100%; }
 }
 
-</style>
+  </style>
 </head>
 <body>
 
-<nav>
-<a href="home.html">Home</a>
-<a href="about.html">About</a>
-<a href="projects.html">Projects</a>
-<a href="contact.html">Contact</a>
-</nav>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 
-<h1>🛰️ Satellite Art Archive</h1>
-<p style="text-align:center;">Exploring the intersection of art, technology, and outer space.</p>
+  <h1>🛰️ Satellite Art Archive</h1>
+  <p style="text-align:center;">Exploring the intersection of art, technology, and outer space.</p>
 
-<section style="display: flex; justify-content: center; gap: 2em; margin-top: 3em; flex-wrap: wrap;">
-<a href="https://en.wikipedia.org/wiki/Pioneer_plaque#" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-<img src="Images/Pioneer Plaque 10.jpg" alt="Pioneer Plaque 10" style="width: 100%; height: 160px; object-fit: cover;">
-<div style="padding: 1em; text-align: left;">
-<h3 style="margin: 0; font-size: 1.1em;">Pioneer Plaque 10</h3>
-<p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1972-Present</p>
-</div>
-</a>
+  <section style="display: flex; justify-content: center; gap: 2em; margin-top: 3em; flex-wrap: wrap;">
+    <a href="https://www.moma.org/collection/works/62272" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/The Moon Museum.jpg" alt="The Moon Museum" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">The Moon Museum</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1969</p>
+      </div>
+    </a>
 
-```
-<a href="<https://en.wikipedia.org/wiki/Fallen_Astronaut>" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-  <img src="Images/Fallen Astronaut.jpg" alt="Fallen Astronaut" style="width: 100%; height: 160px; object-fit: cover;">
-  <div style="padding: 1em; text-align: left;">
-    <h3 style="margin: 0; font-size: 1.1em;">Fallen Astronaut</h3>
-    <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1971</p>
-  </div>
-</a>
+    <a href="https://en.wikipedia.org/wiki/Fallen_Astronaut" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/Fallen Astronaut.jpg" alt="Fallen Astronaut" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">Fallen Astronaut</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1971</p>
+      </div>
+    </a>
 
-<a href="<https://ru.wikipedia.org/wiki/%D0%92%D1%8B%D0%B7%D0%BE%D0%B2_(%D1%84%D0%B8%D0%BB%D1%8C%D0%BC,_2023)>" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-  <img src="Images/The Challenge (Вызов).jpg" alt="The Challenge (Вызов)" style="width: 100%; height: 160px; object-fit: cover;">
-  <div style="padding: 1em; text-align: left;">
-    <h3 style="margin: 0; font-size: 1.1em;">The Challenge (Вызов)</h3>
-    <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">2023</p>
-  </div>
-</a>
-
-```
-
-</section>
-<!-- 下载按钮 -->
+    <a href="https://science.nasa.gov/mission/voyager/voyager-golden-record-overview/" target="_blank" style="text-decoration: none; color: white; width: 280px; background-color: #0a0a0a; border: 1px solid #333; border-radius: 8px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+      <img src="Images/Voyager Golden Record.jpg" alt="Voyager Golden Record" style="width: 100%; height: 160px; object-fit: cover;">
+      <div style="padding: 1em; text-align: left;">
+        <h3 style="margin: 0; font-size: 1.1em;">Voyager Golden Record</h3>
+        <p style="margin: 1em 0 0 0; font-size: 0.9em; opacity: 0.8;">1977–present</p>
+      </div>
+    </a>
+  </section>
+  <!-- 下载按钮 -->
 <button id="downloadGraphBtn" style="
-position: fixed;
-bottom: 430px;
-right: 370px;
-background:#0af;
-color:white;
-border:none;
-border-radius:8px;
-padding:6px 10px;
-cursor:pointer;
-display:none;
-z-index:10000;
+  position: fixed;
+  bottom: 430px;
+  right: 370px;
+  background:#0af;
+  color:white;
+  border:none;
+  border-radius:8px;
+  padding:6px 10px;
+  cursor:pointer;
+  display:none;
+  z-index:10000;
 ">⬇ Download Graph</button>
+
 
 <!-- 加载 Vis.js -->
 <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
-<footer>
-© 2025 Satellite Art Archive · Created by Shirley
-</footer>
+  <footer>
+    © 2025 Satellite Art Archive · Created by Shirley
+  </footer>
 
-<!-- Chatbox -->
-<section id="chat-section">
-<div id="chat-window">
-<div id="chat-history"></div>
-</div>
+  <!-- Chatbox -->
+  <section id="chat-section">
+  <div id="chat-window">
+    <div id="chat-history"></div>
+  </div>
 
-<!-- 输入框和发送按钮整个模块 -->
-<div id="chat-input-area" style="margin-top: 10px; display: flex; gap: 6px;">
-<input id="userInput" type="text" placeholder="Ask AI..." style="
-flex: 1;
-padding: 8px;
-border-radius: 8px;
-border: none;
-background: #222;
-color: #fff;
-">
-<button id="sendBtn" style="
-background:#0af;
-color:white;
-border:none;
-border-radius:8px;
-padding:8px 12px;
-cursor:pointer;
-">
-Send
-</button>
-</div>
+  <!-- 输入框和发送按钮整个模块 -->
+  <div id="chat-input-area" style="margin-top: 10px; display: flex; gap: 6px;">
+    <input id="userInput" type="text" placeholder="Ask AI..." style="
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      background: #222;
+      color: #fff;
+    ">
+    <button id="sendBtn" style="
+      background:#0af;
+      color:white;
+      border:none;
+      border-radius:8px;
+      padding:8px 12px;
+      cursor:pointer;
+    ">
+      Send
+    </button>
+  </div>
 
 </section>
 
-<script>
-async function sendMessage() {
-const input = document.getElementById("userInput");
-const history = document.getElementById("chat-history");
-const userMsg = input.value.trim();
-if (!userMsg) return;
-// ✅ 国家—轨道—艺术家关系图指令（中英文）
+ <script>
+  async function sendMessage() {
+    const input = document.getElementById("userInput");
+    const history = document.getElementById("chat-history");
+    const userMsg = input.value.trim();
+    if (!userMsg) return;
+    // ✅ 国家—轨道—艺术家关系图指令（中英文）
 if (
-userMsg.includes("国家轨道艺术家关系图") ||
-userMsg.includes("国家、轨道、艺术家关系图") ||
-userMsg.toLowerCase().includes("country orbit artist relation")
+  userMsg.includes("国家轨道艺术家关系图") ||
+  userMsg.includes("国家、轨道、艺术家关系图") ||
+  userMsg.toLowerCase().includes("country orbit artist relation")
 ) {
-window.location.href = "https://satellite-chat-api.vercel.app/satellite_art_semantic_ACO_interactive.html";
-input.value = "";
-return;
+  window.location.href = "https://satellite-chat-api.vercel.app/satellite_art_semantic_ACO_interactive.html";
+  input.value = "";
+  return;
 }
 
-```
-// 显示用户消息
-const userBubble = document.createElement("div");
-userBubble.style.textAlign = "right";
-userBubble.innerHTML =
-  '<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">'
-  + userMsg +
-  "</div>";
-history.appendChild(userBubble);
-input.value = "";
-
-// 显示 loading
-const loading = document.createElement("div");
-loading.textContent = "AI is typing...";
-loading.style.color = "#888";
-history.appendChild(loading);
-history.scrollTop = history.scrollHeight;
-
-try {
-  const res = await fetch("<https://satellite-chat-api.vercel.app/api/chat>", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: userMsg })
-  });
-
-  const data = await res.json();
-  loading.remove();
-
-  // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
-  if (data.type === "graph" && data.data) {
-    toggleGraph(data.data);
-    return; // 不再额外显示文本气泡
-  }
-
-  // ② 普通文本响应：{ reply: "..." }
-  if (data.reply) {
-    const aiBubble = document.createElement("div");
-    aiBubble.innerHTML =
-      '<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;max-width:90%;text-align:justify;text-justify:inter-word;line-height:1.6;">'
-      + data.reply +
+    // 显示用户消息
+    const userBubble = document.createElement("div");
+    userBubble.style.textAlign = "right";
+    userBubble.innerHTML =
+      '<div style="display:inline-block;background:#0af;padding:8px 12px;border-radius:10px;margin:4px 0;">'
+      + userMsg +
       "</div>";
-    history.appendChild(aiBubble);
+    history.appendChild(userBubble);
+    input.value = "";
+
+    // 显示 loading
+    const loading = document.createElement("div");
+    loading.textContent = "AI is typing...";
+    loading.style.color = "#888";
+    history.appendChild(loading);
     history.scrollTop = history.scrollHeight;
-    return;
-  }
 
-  // ③ 异常情况：没有 reply / type
-  const errorBubble = document.createElement("div");
-  errorBubble.style.color = "red";
-  errorBubble.textContent = "AI 返回格式不符合预期。";
-  history.appendChild(errorBubble);
+    try {
+      const res = await fetch("https://satellite-chat-api.vercel.app/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userMsg })
+      });
 
-} catch (err) {
-  loading.textContent = "Error connecting to AI.";
-  loading.style.color = "red";
-  console.error(err);
-}
+      const data = await res.json();
+      loading.remove();
 
-```
+      // ① 语义图响应：后端返回 { type: "graph", data: { nodes, links } }
+      if (data.type === "graph" && data.data) {
+        toggleGraph(data.data);
+        return; // 不再额外显示文本气泡
+      }
 
-}
+      // ② 普通文本响应：{ reply: "..." }
+      if (data.reply) {
+        const aiBubble = document.createElement("div");
+        aiBubble.innerHTML =
+          '<div style="display:inline-block;background:#333;padding:8px 12px;border-radius:10px;margin:4px 0;max-width:90%;text-align:justify;text-justify:inter-word;line-height:1.6;">'
+          + data.reply +
+          "</div>";
+        history.appendChild(aiBubble);
+        history.scrollTop = history.scrollHeight;
+        return;
+      }
 
-document.getElementById("sendBtn").addEventListener("click", sendMessage);
-document.getElementById("userInput").addEventListener("keypress", (e) => {
-if (e.key === "Enter") sendMessage();
-});
+      // ③ 异常情况：没有 reply / type
+      const errorBubble = document.createElement("div");
+      errorBubble.style.color = "red";
+      errorBubble.textContent = "AI 返回格式不符合预期。";
+      history.appendChild(errorBubble);
 
-// 语义图渲染 + 下载
-function toggleGraph(graphData) {
-const container = document.getElementById("graph-container");
-const downloadBtn = document.getElementById("downloadGraphBtn");
-
-```
-container.style.display = "block";
-downloadBtn.style.display = "inline-block";
-
-// 后端返回的是 data: { nodes, links }
-const nodes = new vis.DataSet(
-  (graphData.nodes || []).map(n => ({
-    id: n.id,
-    label: n.id,
-    color: n.type === "keyword" ? "#97c2fc" : "#4da6ff"
-  }))
-);
-
-const edges = new vis.DataSet(
-  (graphData.links || []).map(l => ({
-    from: l.source,
-    to: l.target,
-    arrows: "to"
-  }))
-);
-
-const network = new vis.Network(
-  container,
-  { nodes, edges },
-  {
-    nodes: {
-      shape: "dot",
-      size: 12,
-      font: { color: "#ffffff" }
-    },
-    edges: {
-      color: "#888",
-      smooth: true
-    },
-    physics: {
-      stabilization: true
+    } catch (err) {
+      loading.textContent = "Error connecting to AI.";
+      loading.style.color = "red";
+      console.error(err);
     }
   }
-);
 
-// 下载当前图为 PNG
-downloadBtn.onclick = () => {
-  const canvas = container.querySelector("canvas");
-  if (!canvas) return;
-  const link = document.createElement("a");
-  link.href = canvas.toDataURL("image/png");
-  link.download = "semantic-graph.png";
-  link.click();
-};
+  document.getElementById("sendBtn").addEventListener("click", sendMessage);
+  document.getElementById("userInput").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+  });
 
-```
+  // 语义图渲染 + 下载
+  function toggleGraph(graphData) {
+    const container = document.getElementById("graph-container");
+    const downloadBtn = document.getElementById("downloadGraphBtn");
 
-}
+    container.style.display = "block";
+    downloadBtn.style.display = "inline-block";
+
+    // 后端返回的是 data: { nodes, links }
+    const nodes = new vis.DataSet(
+      (graphData.nodes || []).map(n => ({
+        id: n.id,
+        label: n.id,
+        color: n.type === "keyword" ? "#97c2fc" : "#4da6ff"
+      }))
+    );
+
+    const edges = new vis.DataSet(
+      (graphData.links || []).map(l => ({
+        from: l.source,
+        to: l.target,
+        arrows: "to"
+      }))
+    );
+
+    const network = new vis.Network(
+      container,
+      { nodes, edges },
+      {
+        nodes: {
+          shape: "dot",
+          size: 12,
+          font: { color: "#ffffff" }
+        },
+        edges: {
+          color: "#888",
+          smooth: true
+        },
+        physics: {
+          stabilization: true
+        }
+      }
+    );
+
+    // 下载当前图为 PNG
+    downloadBtn.onclick = () => {
+      const canvas = container.querySelector("canvas");
+      if (!canvas) return;
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "semantic-graph.png";
+      link.click();
+    };
+  }
 </script>

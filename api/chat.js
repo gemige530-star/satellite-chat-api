@@ -65,11 +65,11 @@ export default async function handler(req, res) {
     }
 
     // ===== 特殊逻辑：语义图 / 关系图 =====
-const p = prompt.trim();
+const p = String(prompt || "").trim();
+console.log(">>> prompt =", JSON.stringify(p));
 
-// 图表意图：简化关键词 + 原有精确关键词（全部保留）
 const isGraphRequest =
-  /\bgraph\b/i.test(p) || // 简化：只输入 graph 也可以
+  /\bgraph\b/i.test(p) ||
   /(语义图|关系图|知识图谱|semantic\s*(graph|network)|relation\s*graph|orbit\s*distribution)/i.test(p);
 
 if (isGraphRequest) {
@@ -77,7 +77,6 @@ if (isGraphRequest) {
   let nodes = [];
   let edges = [];
 
-  // 国家维度：英文 + 中文
   if (/(country|国家)/i.test(p)) {
     graph_type = "country_orbit";
     nodes = [
@@ -102,11 +101,16 @@ if (isGraphRequest) {
     edges = [];
   }
 
+  console.log(">>> ✅ graph branch hit:", graph_type);
+
+  // 关键：带 reply，避免前端只认 text 时“无反应”
   return res.status(200).json({
     type: "graph",
+    reply: "[GRAPH] payload returned",
     data: { graph_type, nodes, edges },
   });
 }
+
     // ===== 普通文字回复（改为使用最新 Prompt，稳定可用）=====
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",

@@ -1,181 +1,643 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Contact · Satellite Art Archive</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    body {
-      min-height: 100vh;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      color: #ffffff; /* 更亮的文字颜色 */
-      background: radial-gradient(ellipse at top, #0f1620 0%, #000 70%) fixed; /* 稍亮的顶部渐变 */
-      display: flex;
-      flex-direction: column;
-    }
+<meta charset="UTF-8">
+<title>Contact · Satellite Art Archive</title>
 
-    /* ---------- Navigation ---------- */
-    nav {
-      background-color: rgba(10,10,20,0.95);
-      text-align: center;
-      padding: 1em 0;
-      box-shadow: 0 0 12px rgba(77,166,255,0.3);
-      margin-bottom: 0;
-    }
+<style>
 
-    nav a {
-      color: #80c0ff;
-      text-decoration: none;
-      margin: 0 1.2em;
-      font-weight: bold;
-      letter-spacing: 0.05em;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    nav a:hover {
-      color: #b3e0ff;
-      text-shadow: 0 0 8px #4da6ff;
-    }
 
-    /* ---------- Main ---------- */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 2em 1em 4em;
-      text-align: center;
-    }
+body{
 
-    h1 {
-      font-size: 2.4em;
-      letter-spacing: 0.1em;
-      margin: 1em 0 0.8em;
-    }
+min-height:100vh;
 
-    section {
-      max-width: 650px;
-      line-height: 1.8;
-      font-size: 1.05em;
-      text-align: left;
-      background-color: rgba(25,25,35,0.85); /* 改为背景透明度，不用 opacity */
-      border: 1px solid rgba(77,166,255,0.3);
-      border-radius: 10px;
-      padding: 2em;
-      box-shadow: 0 0 15px rgba(77,166,255,0.15);
-    }
+font-family:"Helvetica Neue",Arial,sans-serif;
 
-    a {
-      color: #4da6ff;
-      text-decoration: none;
-    }
+color:#ffffff;
 
-    a:hover {
-      color: #9cd6ff;
-      text-shadow: 0 0 6px #4da6ff;
-    }
+background:radial-gradient(ellipse at top,#0f1620 0%,#000 70%) fixed;
 
-    /* ---------- Form ---------- */
-    form {
-      margin-top: 1.5em;
-      display: flex;
-      flex-direction: column;
-      gap: 1em;
-    }
+display:flex;
 
-    input, textarea {
-      background-color: #111820;
-      color: #f0f8ff;
-      border: 1px solid #333;
-      padding: 0.8em;
-      font-size: 1em;
-      border-radius: 6px;
-      font-family: inherit;
-    }
+flex-direction:column;
 
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: #4da6ff;
-      box-shadow: 0 0 5px #4da6ff;
-    }
+}
 
-    button {
-      background-color: #4da6ff;
-      border: none;
-      color: black;
-      font-weight: bold;
-      padding: 0.8em 1em;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
 
-    button:hover {
-      background-color: #9cd6ff;
-      box-shadow: 0 0 8px #4da6ff;
-    }
+/* Language Switch */
 
-    /* ---------- Footer ---------- */
-    footer {
-      background-color: rgba(10,10,20,0.95);
-      font-size: 0.9em;
-      text-align: center;
-      padding: 1em 0;
-      box-shadow: 0 -2px 8px rgba(77,166,255,0.2);
-      color: #cfe8ff;
-    }
-  </style>
+#language-switch{
+
+position:fixed;
+
+top:15px;
+
+right:25px;
+
+z-index:9999;
+
+}
+
+
+
+#language-switch button{
+
+background:#111;
+
+color:#4da6ff;
+
+border:1px solid #4da6ff;
+
+padding:6px 12px;
+
+margin-left:5px;
+
+border-radius:6px;
+
+cursor:pointer;
+
+font-weight:bold;
+
+}
+
+
+
+#language-switch button:hover{
+
+background:#4da6ff;
+
+color:white;
+
+}
+
+
+
+/* Navigation */
+
+
+nav{
+
+background-color:rgba(10,10,20,0.95);
+
+text-align:center;
+
+padding:1em 0;
+
+box-shadow:0 0 12px rgba(77,166,255,0.3);
+
+}
+
+
+
+nav a{
+
+color:#80c0ff;
+
+text-decoration:none;
+
+margin:0 1.2em;
+
+font-weight:bold;
+
+letter-spacing:.05em;
+
+}
+
+
+
+nav a:hover{
+
+color:#b3e0ff;
+
+text-shadow:0 0 8px #4da6ff;
+
+}
+
+
+
+/* Back */
+
+
+.back{
+
+position:fixed;
+
+top:15px;
+
+left:20px;
+
+color:#cccccc;
+
+text-decoration:none;
+
+font-weight:bold;
+
+background:rgba(255,255,255,0.05);
+
+padding:6px 12px;
+
+border-radius:6px;
+
+z-index:10001;
+
+}
+
+
+
+
+
+main{
+
+flex:1;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+padding:2em 1em 4em;
+
+text-align:center;
+
+}
+
+
+
+h1{
+
+font-size:2.4em;
+
+letter-spacing:.1em;
+
+margin:1em 0 .8em;
+
+}
+
+
+
+section{
+
+max-width:650px;
+
+line-height:1.8;
+
+font-size:1.05em;
+
+text-align:left;
+
+background-color:rgba(25,25,35,.85);
+
+border:1px solid rgba(77,166,255,.3);
+
+border-radius:10px;
+
+padding:2em;
+
+box-shadow:0 0 15px rgba(77,166,255,.15);
+
+}
+
+
+
+a{
+
+color:#4da6ff;
+
+text-decoration:none;
+
+}
+
+
+
+a:hover{
+
+color:#9cd6ff;
+
+}
+
+
+
+form{
+
+margin-top:1.5em;
+
+display:flex;
+
+flex-direction:column;
+
+gap:1em;
+
+}
+
+
+
+input,textarea{
+
+background:#111820;
+
+color:#f0f8ff;
+
+border:1px solid #333;
+
+padding:.8em;
+
+font-size:1em;
+
+border-radius:6px;
+
+font-family:inherit;
+
+}
+
+
+
+input:focus,textarea:focus{
+
+outline:none;
+
+border-color:#4da6ff;
+
+}
+
+
+
+button{
+
+background:#4da6ff;
+
+border:none;
+
+color:black;
+
+font-weight:bold;
+
+padding:.8em 1em;
+
+border-radius:6px;
+
+cursor:pointer;
+
+}
+
+
+
+button:hover{
+
+background:#9cd6ff;
+
+}
+
+
+
+/* Footer */
+
+
+footer{
+
+background-color:rgba(10,10,20,.95);
+
+font-size:.9em;
+
+text-align:center;
+
+padding:1em 0;
+
+color:#cfe8ff;
+
+}
+
+
+
+</style>
+
 </head>
+
+
+
+
 <body>
-<body>
- <!-- 返回首页按钮 -->
+
+
+
+<!-- Language -->
+
+<div id="language-switch">
+
+<button onclick="changeLanguage('en')">
+EN
+</button>
+
+<button onclick="changeLanguage('zh')">
+中文
+</button>
+
+</div>
+
+
+
+
+
 <a href="index.html"
-   style="position: fixed; 
-          top: 15px; 
-          left: 20px; 
-          color: #cccccc; 
-          text-decoration: none; 
-          font-weight: bold; 
-          background: rgba(255,255,255,0.05); 
-          padding: 6px 12px; 
-          border-radius: 6px; 
-          transition: background 0.3s; 
-          z-index: 10001;">
-  ← Back to Index
+class="back"
+data-en="← Back to Index"
+data-zh="← 返回首页">
+
+← Back to Index
+
 </a>
-  <nav>
-    <a href="home.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-    <a href="contact.html">Contact</a>
-  </nav>
 
-  <main>
-    <h1>📡 Contact</h1>
-    <section>
-      <p><strong>Satellite Art Archive</strong> welcomes collaboration and contributions from researchers and artists interested in orbital or extraterrestrial art practices.</p>
-      <p>You can contact the curator via email at 
-        <a href="mailto:gemige530@gmail.com">gemige530@gmail.com</a>.
-      </p>
 
-      <form>
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="email" placeholder="Your Email" required>
-        <textarea name="message" rows="5" placeholder="Your Message"></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
-  </main>
 
-  <footer>
-    © 2025 Satellite Art Archive · Created by Shirley
-  </footer>
+
+
+<nav>
+
+
+<a href="home.html"
+data-en="Home"
+data-zh="首页">
+Home
+</a>
+
+
+<a href="about.html"
+data-en="About"
+data-zh="关于">
+About
+</a>
+
+
+<a href="projects.html"
+data-en="Projects"
+data-zh="项目">
+Projects
+</a>
+
+
+<a href="contact.html"
+data-en="Contact"
+data-zh="联系">
+Contact
+</a>
+
+
+</nav>
+
+
+
+
+
+
+<main>
+
+
+<h1
+
+data-en="📡 Contact"
+
+data-zh="📡 联系">
+
+📡 Contact
+
+</h1>
+
+
+
+
+
+<section>
+
+
+<p>
+
+<strong
+
+data-en="Satellite Art Archive"
+
+data-zh="卫星艺术档案馆">
+
+Satellite Art Archive
+
+</strong>
+
+
+<span
+
+data-en=" welcomes collaboration and contributions from researchers and artists interested in orbital or extraterrestrial art practices."
+
+data-zh="欢迎对轨道艺术或外太空艺术实践感兴趣的研究者和艺术家开展合作与贡献。">
+
+ welcomes collaboration and contributions from researchers and artists interested in orbital or extraterrestrial art practices.
+
+</span>
+
+
+</p>
+
+
+
+
+
+<p
+
+data-en="You can contact the curator via email at"
+
+data-zh="您可以通过以下邮箱联系策展人：">
+
+You can contact the curator via email at
+
+</p>
+
+
+
+<p>
+
+<a href="mailto:gemige530@gmail.com">
+
+gemige530@gmail.com
+
+</a>
+
+</p>
+
+
+
+
+
+
+<form>
+
+
+<input
+
+type="text"
+
+name="name"
+
+placeholder="Your Name"
+
+data-en-placeholder="Your Name"
+
+data-zh-placeholder="您的姓名"
+
+required>
+
+
+
+
+<input
+
+type="email"
+
+name="email"
+
+placeholder="Your Email"
+
+data-en-placeholder="Your Email"
+
+data-zh-placeholder="您的邮箱"
+
+required>
+
+
+
+
+<textarea
+
+name="message"
+
+rows="5"
+
+placeholder="Your Message"
+
+data-en-placeholder="Your Message"
+
+data-zh-placeholder="您的留言">
+
+</textarea>
+
+
+
+
+<button
+
+type="submit"
+
+data-en="Send Message"
+
+data-zh="发送信息">
+
+Send Message
+
+</button>
+
+
+
+</form>
+
+
+
+</section>
+
+
+</main>
+
+
+
+
+
+
+
+<footer>
+
+
+<span
+
+data-en="© 2025 Satellite Art Archive · Created by Shirley"
+
+data-zh="© 2025 卫星艺术档案馆 · 创建者 Shirley">
+
+© 2025 Satellite Art Archive · Created by Shirley
+
+</span>
+
+
+</footer>
+
+
+
+
+
+
+
+<script>
+
+
+function changeLanguage(lang){
+
+
+
+document.querySelectorAll("[data-en]").forEach(function(el){
+
+
+if(lang==="zh"){
+
+el.textContent=el.dataset.zh;
+
+}
+
+else{
+
+el.textContent=el.dataset.en;
+
+}
+
+
+});
+
+
+
+
+// placeholder switching
+
+
+document.querySelectorAll("[data-en-placeholder]").forEach(function(el){
+
+
+if(lang==="zh"){
+
+el.placeholder=el.dataset.zhPlaceholder;
+
+}
+
+else{
+
+el.placeholder=el.dataset.enPlaceholder;
+
+}
+
+
+});
+
+
+
+}
+
+
+
+</script>
+
+
 
 </body>
+
 </html>

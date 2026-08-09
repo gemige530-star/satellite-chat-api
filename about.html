@@ -1,36 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="UTF-8">
-<title>About · Satellite Art Archive</title>
-<body style="margin:0; background:#000; color:white; font-family:'Helvetica Neue',sans-serif; text-align:center;">
 
-<nav style="background-color:rgba(10,10,10,0.9); padding:1em 0; text-align:center; box-shadow:0 0 12px rgba(0,0,0,0.3);">
-  <a href="home.html" style="color:white; text-decoration:none; margin:0 1.2em; font-weight:bold; letter-spacing:0.05em;">Home</a>
-  <a href="about.html" style="color:white; text-decoration:none; margin:0 1.2em; font-weight:bold; letter-spacing:0.05em;">About</a>
-  <a href="projects.html" style="color:white; text-decoration:none; margin:0 1.2em; font-weight:bold; letter-spacing:0.05em;">Projects</a>
-  <a href="contact.html" style="color:white; text-decoration:none; margin:0 1.2em; font-weight:bold; letter-spacing:0.05em;">Contact</a>
-</nav>
-<a href="index.html" 
-   style="position: absolute; top: 15px; left: 20px; 
-          color: white; text-decoration: none; 
-          font-weight: bold; background: rgba(255,255,255,0.1); 
-          padding: 6px 12px; border-radius: 6px; 
-          transition: background 0.3s;">
-  ← Back to Index
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About · Satellite Art Archive</title>
+
+
+<style>
+
+body {
+
+margin:0;
+background:#000;
+color:white;
+font-family:'Helvetica Neue',sans-serif;
+text-align:center;
+
+}
+
+
+nav {
+
+background-color:rgba(10,10,10,0.9);
+padding:1em 0;
+box-shadow:0 0 12px rgba(0,0,0,0.3);
+
+}
+
+
+nav a {
+
+color:#4da6ff;
+text-decoration:none;
+margin:0 1.2em;
+font-weight:bold;
+letter-spacing:0.05em;
+
+}
+
+
+nav a:hover {
+
+color:#9cd6ff;
+
+}
+
+
+
+/* Language */
+
+#language-switch {
+
+position:fixed;
+top:15px;
+right:25px;
+z-index:9999;
+
+}
+
+
+
+#language-switch button {
+
+background:#111;
+color:#4da6ff;
+border:1px solid #4da6ff;
+padding:6px 12px;
+margin-left:5px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+
+
+#language-switch button:hover {
+
+background:#4da6ff;
+color:white;
+
+}
+
+
+
+/* Back button */
+
+.back {
+
+position:absolute;
+top:15px;
+left:20px;
+color:white;
+text-decoration:none;
+font-weight:bold;
+background:rgba(255,255,255,0.1);
+padding:6px 12px;
+border-radius:6px;
+
+}
+
+
+
+
+header {
+
+padding:2em 1em;
+
+}
+
+
+
+h1 {
+
+font-size:2.4em;
+letter-spacing:0.05em;
+margin-bottom:0.3em;
+
+}
+
+
+
+header p {
+
+font-size:1.1em;
+opacity:0.8;
+
+}
+
+
+
+main {
+
+max-width:850px;
+margin:2em auto;
+text-align:left;
+line-height:1.8;
+font-size:1.05em;
+opacity:0.9;
+padding:0 1.5em;
+
+}
+
+
+
+main p {
+
+text-align:justify;
+letter-spacing:0.03em;
+
+}
+
+
+
+footer {
+
+position:fixed;
+bottom:0;
+width:100%;
+background:#0a0a0a;
+opacity:0.6;
+padding:0.8em 0;
+font-size:0.9em;
+
+}
+
+
+</style>
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- Language Switch -->
+
+<div id="language-switch">
+
+<button onclick="changeLanguage('en')">
+EN
+</button>
+
+
+<button onclick="changeLanguage('zh')">
+中文
+</button>
+
+
+</div>
+
+
+
+
+
+<nav>
+
+
+<a href="home.html"
+data-en="Home"
+data-zh="首页">
+
+Home
+
 </a>
 
-<header style="padding:2em 1em;">
-  <h1 style="font-size:2.4em; letter-spacing:0.05em; margin-bottom:0.3em;">About Satellite Art Archive</h1>
-  <p style="font-size:1.1em; opacity:0.8;">Tracing the artistic imagination of orbit and deep space.</p>
+
+<a href="about.html"
+data-en="About"
+data-zh="关于">
+
+About
+
+</a>
+
+
+<a href="projects.html"
+data-en="Projects"
+data-zh="项目">
+
+Projects
+
+</a>
+
+
+<a href="contact.html"
+data-en="Contact"
+data-zh="联系">
+
+Contact
+
+</a>
+
+
+</nav>
+
+
+
+
+
+<a href="index.html"
+class="back"
+data-en="← Back to Index"
+data-zh="← 返回首页">
+
+← Back to Index
+
+</a>
+
+
+
+
+
+<header>
+
+
+<h1
+
+data-en="About Satellite Art Archive"
+
+data-zh="关于卫星艺术档案馆">
+
+About Satellite Art Archive
+
+</h1>
+
+
+
+<p
+
+data-en="Tracing the artistic imagination of orbit and deep space."
+
+data-zh="追踪轨道与深空中的艺术想象。">
+
+Tracing the artistic imagination of orbit and deep space.
+
+</p>
+
+
+
 </header>
 
-<main style="max-width:850px; margin:2em auto; text-align:left; line-height:1.8; font-size:1.05em; opacity:0.9; padding:0 1.5em;">
-  <p><strong>Satellite Art Archive</strong> establishes a digital platform to document and showcase global satellite art, addressing data gaps and uncertainties in satellite operations through innovative digital archiving methods.</p>
 
-  <p>By integrating a large language model, the archive enables users to explore content through natural language interaction, functioning as an intelligent digital guide for public audiences.</p>
 
-  <p>For researchers, it provides an advanced tool for scholars using LLMs to analyze the satellite art data within the archive. By using natural language, researchers can generate customized knowledge graphs without the need for complex search syntax. </p>
+
+
+
+
+<main>
+
+
+
+<p>
+
+<strong
+
+data-en="Satellite Art Archive"
+
+data-zh="卫星艺术档案馆">
+
+Satellite Art Archive
+
+</strong>
+
+
+<span
+
+data-en=" establishes a digital platform to document and showcase global satellite art, addressing data gaps and uncertainties in satellite operations through innovative digital archiving methods."
+
+data-zh="建立了一个用于记录和展示全球卫星艺术的数字平台，通过创新性的数字档案方法回应卫星艺术数据缺失以及运行状态不确定等问题。">
+
+ establishes a digital platform to document and showcase global satellite art, addressing data gaps and uncertainties in satellite operations through innovative digital archiving methods.
+
+</span>
+
+
+</p>
+
+
+
+
+
+<p
+
+data-en="By integrating a large language model, the archive enables users to explore content through natural language interaction, functioning as an intelligent digital guide for public audiences."
+
+data-zh="通过整合大型语言模型，该档案允许用户以自然语言交互的方式探索内容，为公众提供智能化的数字导览服务。">
+
+By integrating a large language model, the archive enables users to explore content through natural language interaction, functioning as an intelligent digital guide for public audiences.
+
+</p>
+
+
+
+
+
+<p
+
+data-en="For researchers, it provides an advanced tool for scholars using LLMs to analyze the satellite art data within the archive. By using natural language, researchers can generate customized knowledge graphs without the need for complex search syntax."
+
+data-zh="对于研究者而言，该平台提供了一种利用大型语言模型分析卫星艺术数据的先进工具。研究者可以通过自然语言生成定制化知识图谱，而无需复杂的检索语法。">
+
+For researchers, it provides an advanced tool for scholars using LLMs to analyze the satellite art data within the archive. By using natural language, researchers can generate customized knowledge graphs without the need for complex search syntax.
+
+</p>
+
+
+
 </main>
 
+
+
+
+
+
+<footer>
+
+
+<span
+
+data-en="© 2025 Satellite Art Archive · Created by Shirley"
+
+data-zh="© 2025 卫星艺术档案馆 · 创建者 Shirley">
+
+© 2025 Satellite Art Archive · Created by Shirley
+
+</span>
+
+
+</footer>
+
+
+
+
+
+
+
+<script>
+
+
+function changeLanguage(lang){
+
+
+document.querySelectorAll("[data-en]").forEach(function(el){
+
+
+if(lang==="zh"){
+
+el.textContent=el.dataset.zh;
+
+}
+
+else{
+
+el.textContent=el.dataset.en;
+
+}
+
+
+});
+
+
+}
+
+
+</script>
+
+
+
+
+
 </body>
+
 </html>

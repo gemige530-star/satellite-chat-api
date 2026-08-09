@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chinese Satellite Art Archive</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    font-family:
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+    color:#fff;
+
+    background:
+    radial-gradient(circle at top,#162536 0%,#05070b 45%,#000 100%);
+
+}
+
+
+/* ---------- Header ---------- */
+
+header{
+
+    padding:80px 10% 50px;
+
+}
+
+.title{
+
+    font-size:48px;
+    letter-spacing:3px;
+
+}
+
+.subtitle{
+
+    margin-top:20px;
+
+    color:#b8c7d9;
+
+    max-width:700px;
+
+    line-height:1.8;
+
+}
+
+
+/* ---------- Navigation ---------- */
+
+nav{
+
+    position:sticky;
+
+    top:0;
+
+    background:
+    rgba(0,0,0,.65);
+
+    backdrop-filter:blur(10px);
+
+    padding:20px 10%;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.1);
+
+}
+
+
+nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    margin-right:35px;
+
+    font-size:14px;
+
+}
+
+
+
+/* ---------- Statistics ---------- */
+
+
+.stats{
+
+    display:flex;
+
+    gap:30px;
+
+    padding:30px 10%;
+
+}
+
+
+.stat{
+
+    flex:1;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    background:
+    rgba(255,255,255,.06);
+
+    border:
+    1px solid rgba(255,255,255,.15);
+
+}
+
+
+.number{
+
+    font-size:40px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* ---------- Timeline ---------- */
+
+.timeline{
+
+    padding:60px 10%;
+
+}
+
+
+.item{
+
+    margin-bottom:40px;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+    135deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.02)
+    );
+
+    border:
+    1px solid rgba(255,255,255,.12);
+
+    transition:.4s;
+
+}
+
+
+.item:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#6fa8ff;
+
+}
+
+
+.year{
+
+    color:#79b8ff;
+
+    font-size:20px;
+
+}
+
+
+.name{
+
+    font-size:28px;
+
+    margin:15px 0;
+
+}
+
+
+.info{
+
+    line-height:2;
+
+    color:#d7dce5;
+
+}
+
+
+
+.tag{
+
+    display:inline-block;
+
+    padding:6px 15px;
+
+    margin:8px 8px 0 0;
+
+    border-radius:20px;
+
+    background:
+    rgba(120,180,255,.15);
+
+    color:#9ed0ff;
+
+    font-size:13px;
+
+}
+
+
+
+/* ---------- Footer ---------- */
+
+
+footer{
+
+    padding:60px 10%;
+
+    color:#888;
+
+    text-align:center;
+
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div class="title">
+Chinese Satellite Art
+</div>
+
+
+<div class="subtitle">
+
+中国卫星艺术档案（1970–2025）
+
+<br>
+
+记录中国艺术实践与航天基础设施结合的发展路径，
+从东方红一号的国家象征性传播，到空间站公共艺术实践，
+再到独立艺术卫星的轨道实验。
+
+</div>
+
+</header>
+
+
+
+<nav>
+
+<a href="#">Archive</a>
+
+<a href="#">Timeline</a>
+
+<a href="#">Projects</a>
+
+<a href="#">About</a>
+
+</nav>
+
+
+
+
+<section class="stats">
+
+
+<div class="stat">
+
+<div class="number">10</div>
+
+Projects
+
+</div>
+
+
+
+<div class="stat">
+
+<div class="number">1970-2025</div>
+
+Period
+
+</div>
+
+
+
+<div class="stat">
+
+<div class="number">180+</div>
+
+Artworks
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="timeline">
+
+
+<div class="item">
+
+<div class="year">
+1970
+</div>
+
+<div class="name">
+东方红一号卫星
+</div>
+
+
+<div class="info">
+
+类型：
+音乐 / 国家航天艺术实践
+
+<br>
+
+创作者：
+中国航天团队
+
+<br>
+
+载体：
+人造卫星
+
+<br>
+
+轨道：
+低地球轨道
+
+<br>
+
+意义：
+中国首次将音乐信号送入太空，
+形成卫星媒介与国家文化传播结合的早期范式。
+
+</div>
+
+
+<span class="tag">
+Satellite
+</span>
+
+<span class="tag">
+Music
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="item">
+
+<div class="year">
+2021
+</div>
+
+
+<div class="name">
+《卫星上的湖泊》
+</div>
+
+
+<div class="info">
+
+艺术家：
+徐冰及其团队
+
+<br>
+
+类型：
+定格动画
+
+<br>
+
+载体：
+人造卫星
+
+<br>
+
+轨道：
+低地球轨道
+
+<br>
+
+状态：
+完成
+
+</div>
+
+
+<span class="tag">
+Video Art
+</span>
+
+<span class="tag">
+Orbital Art
+</span>
+
+
+</div>
+
+
+
+
+
+
+<div class="item">
+
+<div class="year">
+2022-2024
+</div>
+
+
+<div class="name">
+天宫画展系列
+</div>
+
+
+<div class="info">
+
+类型：
+空间站公共艺术项目
+
+<br>
+
+参与者：
+中国青少年与中国航天团队
+
+<br>
+
+载体：
+中国空间站
+
+<br>
+
+特点：
+将空间站转化为公共文化展示平台。
+
+</div>
+
+
+<span class="tag">
+Space Station
+</span>
+
+<span class="tag">
+Public Art
+</span>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="item">
+
+
+<div class="year">
+2024
+</div>
+
+
+<div class="name">
+
+SCA-1号卫星
+<br>
+徐冰艺术卫星创作驻留项目
+
+</div>
+
+
+
+<div class="info">
+
+
+艺术家：
+徐冰团队及38位全球艺术家
+
+
+<br>
+
+类型：
+影像艺术、生成艺术
+
+
+<br>
+
+载体：
+独立艺术卫星
+
+
+<br>
+
+轨道：
+低地球轨道
+
+
+<br>
+
+特点：
+中国艺术家首次以独立卫星作为艺术媒介，
+探索轨道环境中的创作、通信与观看关系。
+
+</div>
+
+
+
+<span class="tag">
+Independent Satellite
+</span>
+
+<span class="tag">
+Generative Art
+</span>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="item">
+
+
+<div class="year">
+2024
+</div>
+
+
+<div class="name">
+
+《天马星空》
+
+</div>
+
+
+<div class="info">
+
+创作：
+徐悲鸿（重庆）美术馆与鸿佑文化
+
+
+<br>
+
+类型：
+影像艺术
+
+
+<br>
+
+载体：
+人造卫星
+
+
+<br>
+
+状态：
+完成
+
+
+</div>
+
+
+
+<span class="tag">
+Satellite Image
+</span>
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+<footer>
+
+Satellite Art Archive · Chinese Satellite Art Database
+
+</footer>
+
+
+
+</body>
+
+</html>

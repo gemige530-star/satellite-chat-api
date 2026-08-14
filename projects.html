@@ -96,6 +96,36 @@ margin-bottom:1.5em;
 
 }
 
+.china-feature {
+display:grid;
+grid-template-columns:minmax(0,1.35fr) minmax(240px,.65fr);
+gap:1.5em;
+align-items:center;
+border:1px solid rgba(77,166,255,.55);
+border-radius:18px;
+padding:2em;
+margin:0 auto 2.5em;
+max-width:1100px;
+background:radial-gradient(circle at 85% 15%,rgba(77,166,255,.22),transparent 38%),linear-gradient(135deg,#101a27,#090b10 65%);
+box-shadow:0 0 30px rgba(77,166,255,.12);
+}
+
+.china-feature h2 { color:#9cd6ff; font-size:clamp(1.7rem,4vw,2.6rem); margin:0 0 .45em; }
+.china-feature p { color:#c8d4e3; max-width:720px; }
+.china-feature .eyebrow { color:#79c0ff; font-size:.78rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.china-feature .feature-link { display:inline-block; margin-top:.7em; padding:.75em 1.1em; border:1px solid #79c0ff; border-radius:999px; color:#fff; background:rgba(77,166,255,.12); }
+.china-feature .feature-link:hover { background:#4da6ff; text-decoration:none; }
+.china-stats { display:grid; grid-template-columns:repeat(2,1fr); gap:.8em; }
+.china-stat { padding:1em; border-radius:12px; background:rgba(255,255,255,.055); border:1px solid rgba(255,255,255,.1); }
+.china-stat strong { display:block; color:#fff; font-size:1.45rem; }
+.china-stat span { color:#9aabc0; font-size:.78rem; }
+
+@media (max-width:760px) {
+.china-feature { grid-template-columns:1fr; padding:1.35em; }
+nav { padding-right:4.5em; }
+nav a { display:inline-block; margin:.25em .55em; }
+}
+
 
 
 .project {
@@ -272,6 +302,22 @@ data-zh="🛰️ 卫星艺术项目">
 🛰️ Satellite Art Projects
 
 </h1>
+
+<section class="china-feature" aria-labelledby="china-archive-title">
+<div>
+<div class="eyebrow" data-en="Featured research archive" data-zh="专题研究档案">Featured research archive</div>
+<h2 id="china-archive-title" data-en="China Satellite Art" data-zh="中国卫星艺术">China Satellite Art</h2>
+<p data-en="Trace twelve projects from Dong Fang Hong 1 to Tiangong exhibitions and the SCA art-satellite residency programme. Explore dates, media, teams, orbital platforms, exhibition sites, status, and verified source links."
+data-zh="从东方红一号到天宫画展与 SCA 艺术卫星驻留计划，浏览12个项目的时间、媒介、团队、轨道载体、展出地点、运行状态及原始资料链接。">Trace twelve projects from Dong Fang Hong 1 to Tiangong exhibitions and the SCA art-satellite residency programme. Explore dates, media, teams, orbital platforms, exhibition sites, status, and verified source links.</p>
+<a class="feature-link" href="china-satellite-art.html" data-en="Explore the China archive →" data-zh="进入中国卫星艺术档案 →">Explore the China archive →</a>
+</div>
+<div class="china-stats" aria-label="Archive summary">
+<div class="china-stat"><strong>12</strong><span data-en="Projects" data-zh="项目">Projects</span></div>
+<div class="china-stat"><strong>1970–2026</strong><span data-en="Period" data-zh="时间范围">Period</span></div>
+<div class="china-stat"><strong>2</strong><span data-en="Active in orbit" data-zh="在轨运行">Active in orbit</span></div>
+<div class="china-stat"><strong>2</strong><span data-en="Platform types" data-zh="载体类型">Platform types</span></div>
+</div>
+</section>
 
 
 
